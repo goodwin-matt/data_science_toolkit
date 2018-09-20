@@ -1,0 +1,248 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+%\setlength\parindent{5pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+% mg added
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Data Science Toolkit \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Matt Goodwin} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{Statistical Modeling}
+\subsection{Overview}
+
+
+
+\subsection{Improving models}
+I learned pretty quickly about the nuances of modeling audiences in this environment. One main issue is that since we don't have data from every store in America, then the non-buyers are non-buyers \emph{only} in the datasets we have. This means that we are modeling on positive cases and \emph{potential} negative cases, but cases that could be positive in another data set.
+
+From the outset one of the first things we looked at was the score distributions (the scores coming out of m360) of three types of households: observed buyers (those we have data on buying the project in question), observed non-buyers (those we have data on buying other products but not the product in question), and unknowns (those we don't have any data on). The distributions of these three categories showed observed non-buyers generally scoring low, observed buyers scoring higher, and unknowns scoring very low. This last point was an issue because the hope would be the unknowns would score high and low since we are assuming there is a mix of buyers and non-buyers in the unknown category. 
+
+\url{http://www.sharelatex.com}
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Dove_Known_Responders_Hist.png}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{Dove_Known_Non_Responders_Hist.png}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{Dove_Unknowns_Hist.png}
+\endminipage
+\end{figure}
+
+Because unknowns were doing so poorly, and because this seemed really the area with most value (since unknowns are such a large group) then we wanted to get a better picture into why this was occurring. To do this we decided to use quotient data as a validation set. The idea was to train a model in spire during some modeling period and then see how the model performed in some post-modeling period validation set coming from quotient. The reason we wanted to use quotient as a validation set was because it would provide a small insight into the behavior of the unknowns. All the particular Hhids in the modeling period might be unknown during the modeling period, but in the validation period and in quotient they might be an observed buyer or non-buyer.
+
+When considering these different groups (observed buyers - OB, observed non-buyers - ONB, and unknowns - UNO) we discovered that observed buyers were always being pushed to the top - regardless of the scores coming out of m360. This led us to wonder if observed non-buyers should be pushed to the bottom every time as well, irrespective of m360 score output. This makes sense on a philosophical level. To see this, consider for example if instead of modeling buyers vs. non-buyers we were modeling male vs. female. Say we know who is male vs. female in our training data and we build a model on the training data and then apply it to all individuals including applying the model to the same training data. It is conceivable that an individual we know to be female in our training data, for example, could receive a high score because they like sports or some other feature leading us to conclude that the individual is male. However, we \emph{know} the truth, we know the individual is female so we should label her as such even though the model contradicts out knowledge.
+
+This argument however switched to observed buyers vs. observed non-buyers is not as robust because of the fact that the observed non-buyers are not necessarily non-buyers in the world outside our dataset. Once could counter this observation by pointing out that we treat this as the truth when building the model, but when we score we switch thinking and decide that its not necessarily the truth and that we should do what the model says to do. The more practical issue with all of this however, is that imeasure needs observed non-buyers in their data to function properly. TODO: understand this better.
+
+Either way, we tested this hypothesis at an estimated audience size and found that moving non-buyers to the bottom of the score file post-processing performs better than leaving it in the score file outputted by m360. By better we mean there were more buyers and more spend in the audience. TODO: make sure I understand this well - these results were from those weeks preparing for Kirby meetings.
+
+It became apparent early on after testing this hypothesis for multiple brands that we would need a way to automate the entire process in order to get results more quickly and more reliably. This led us to write an A/B testing pipeline in python that would call Qubole to run the needed queries for creating validation sets, seeds, etc. and output BTR (buy through rate) curves.
+
+\subsubsection{Pipeline}
+
+The main steps of the pipeline include the following:
+
+
+\begin{enumerate}
+\item Generate seeds and subsets for m360 model runs - one run for the A case and one run for the B case.
+\item Generate validation sets and labeling sets
+\item Label model score file
+\item Manipulate model score file if needed (such as forcing observed buyers to the top)
+\item Order score file and segment
+\item Output BTR curves and other metrics
+\end{enumerate}
+
+In part because imeasure needed observed non-buyers and also for exploratory purposes, we looked at labeling the model score file into active and nonactive observed buyers, active and nonactive observed non-buyers and unknowns. The idea was that by splitting the observed non-buyers into two categories we could force one of those labels down to the bottom of the score file while still allowing the non-buyers from the other label to make it into the fulfilled audience. The partitioning process was somewhat arbitrary; active and non-active observed buyers were defined to be Hhids that bought the brand more than once versus only one time (roughly splitting observed buyers in half) and active vs. non-active observed non-buyers were defined to be Hhids that \emph{shopped} more than seven times versus seven or less times. TODO: Why did we choose this number
+
+The pipeline was later simplified to not partition into labels and only look at the entire BTR curve as an aggregate across labels. The labeling capability is still available but we are focusing on producing a single BTR curve for each model run, along with a metrics package.
+
+
+\begin{equation}
+OB > UNO > ONB
+\end{equation}
+
+\begin{equation}
+P(Buyers | OB) > P(Buyers | UNO) > P(Buyers | ONB)
+\end{equation}
+
+
+\section{CA Industry Verticals}
+\subsection{Overview}
+
+The CA Industry Verticals team was made up of Alistair Sutcliffe, Kalin Jaffe, and Nate Klyn when I joined. Their main focus was centered around the different verticals that didn't fit within the other teams such as auto and retail. These verticals that they focused on included telco, financial, and technology as a couple of examples.
+
+One of the first things I started working on was helping with audience profile and audience optimizer runs. Audience profile was a process developed for taking some group of customers or people a company wants to target (a seed) and finding which audience we have in the BlueKai marketplace that best overlaps with the seed. This would be the top recommended audience to the client. This process would continue, finding the next best audience to recommend and so forth.
+
+Audience optimizer is essentially an improvement upon audience profile but more smartly choosing which audiences to recommend. If we recommend some audience based on its overlap of the seed, the next best audience might actually have a high overlap with the first audience we recommend. Because of this audience optimizer dedupes the remaining audiences so that we find audiences that don't have a high overlap with each other. I did some research in the realm for quite a large part of the rotation and found that audience optimizer performed better than even modeling in some cases. It almost seemed that we were getting relatively the same curves each time we did an audience optimizer run, there really didn't seem to be much variance between the runs.
+
+\subsection{Switchers Project}
+
+This is where I spent the later half of my time. Product contacted us and wanted to see if we could develop audiences for cell phone providers that would determine which households are loyalists, which households are more likely to switch providers, etc.
+
+There are really two main types of audiences associated with this larger effort - audiences that are descriptive and audiences that are predictive. However, essential to both of these categories is how to determine a cell phone switch event.
+
+One of the first ideas we had and the one we were most excited about was to get different cell phone geo-tracking data from different sources and see if we could create a ``geo-signature'' of some sort for each cell phone. The idea was to then find cell phone pairs with the same or similar ``geo-signatures'' and see if one cell phone appeared after another phone in terms of time. This would indicate that a individual switched phones.
+
+To get this geo-tracking data we looked at a few different providers. This required a lot of QC work and evaluation of the provided datasets. We were able to find a distinct variation in data quality between these different providers. One of the major differences between some of the providers we looked at was that one was getting location data based of cell phone towers which provides a much less accurate reading compared to other sources. The other more high quality companies develop an SDK (software development kit) for third-party app developers to use. Within that SDK is code that tracks the location of the cell phone. We found this to be much more accurate than the cell phone tower approach. TODO: Give some examples of the differences in accuracy
+
+In the end we settled on two different data providers. One Audience gave us more scale but potentially less accuracy whereas Cuebiq gave us more accuracy but less scale. Cuebiq also had a better iOS footprint which was essentially to some of the audiences we wanted to develop. Throughout this QC however we realized that creating ``geo-signatures'' presented a lot of different challenges. Obviously, a direct match in geo signatures would be very rare, but we felt that even a distributional approach would have some issues as well because of the data being too sparse.
+
+
+The first ideas we had were to use geo location data to determine who 
+
+
+
+
+
+
+\begin{align} 
+\begin{split}
+(x+y)^3 	&= (x+y)^2(x+y)\\
+&=(x^2+2xy+y^2)(x+y)\\
+&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
+&=x^3+3x^2y+3xy^2+y^3
+\end{split}					
+\end{align}
+
+Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies
+
+%------------------------------------------------
+
+\subsection{Heading on level 2 (subsection)}
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
+\begin{align}
+A = 
+\begin{bmatrix}
+A_{11} & A_{21} \\
+A_{21} & A_{22}
+\end{bmatrix}
+\end{align}
+Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+
+%------------------------------------------------
+
+\subsubsection{Heading on level 3 (subsubsection)}
+
+\lipsum[3] % Dummy text
+
+\paragraph{Heading on level 4 (paragraph)}
+
+\lipsum[6] % Dummy text
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\section{Lists}
+
+%------------------------------------------------
+
+\subsection{Example of list (3*itemize)}
+\begin{itemize}
+	\item First item in a list 
+		\begin{itemize}
+		\item First item in a list 
+			\begin{itemize}
+			\item First item in a list 
+			\item Second item in a list 
+			\end{itemize}
+		\item Second item in a list 
+		\end{itemize}
+	\item Second item in a list 
+\end{itemize}
+
+%------------------------------------------------
+
+\subsection{Example of list (enumerate)}
+\begin{enumerate}
+\item First item in a list 
+\item Second item in a list 
+\item Third item in a list
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
