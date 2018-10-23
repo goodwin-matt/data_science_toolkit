@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  17 OCT 2018 15:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  23 OCT 2018 14:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -983,15 +983,15 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<./images/bishop_optimal_distributions.png, id=75, 423.5825pt x 271.0125pt>
+<./images/bishop_optimal_distributions.png, id=80, 423.5825pt x 271.0125pt>
 File: ./images/bishop_optimal_distributions.png Graphic file (type png)
 
 <use ./images/bishop_optimal_distributions.png>
 Package pdftex.def Info: ./images/bishop_optimal_distributions.png used on inpu
-t line 153.
+t line 152.
 (pdftex.def)             Requested size: 296.50572pt x 189.70744pt.
  [3 <./images/bishop_optimal_distributions.png>] [4] [5]
-LaTeX Font Info:    Try loading font information for TS1+futs on input line 272
+LaTeX Font Info:    Try loading font information for TS1+futs on input line 270
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/ts1futs.fd
@@ -1007,26 +1007,26 @@ Class scrartcl Warning: incompatible usage of \@ssect detected.
 ne 1.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 291.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 289.
  [7
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 291.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 289.
  (./summary.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 291.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 291.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 289.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 289.
 Package rerunfilecheck Info: File `summary.out' has not changed.
-(rerunfilecheck)             Checksum: D9CE1A8284068C4A4836369F0DADBEAD;711.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 291.
+(rerunfilecheck)             Checksum: E16EA31CFA4E6A7EE7BFAE717DA4272E;786.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 289.
  ) 
 Here is how much of TeX's memory you used:
- 16598 strings out of 492995
- 277866 string characters out of 6132704
- 595944 words of memory out of 5000000
- 19768 multiletter control sequences out of 15000+600000
+ 16600 strings out of 492995
+ 277906 string characters out of 6132704
+ 595945 words of memory out of 5000000
+ 19769 multiletter control sequences out of 15000+600000
  135090 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,16n,51p,8818b,400s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,16n,51p,8818b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
 exlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
 live/2017/texmf-dist/fonts/type1/public/fourier/fourier-bb.pfb></usr/local/texl
@@ -1037,10 +1037,10 @@ ive/2017/texmf-dist/fonts/type1/adobe/utopia/putbi8a.pfb></usr/local/texlive/20
 17/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist
 /fonts/type1/public/cm-super/sfsx1095.pfb>
-Output written on summary.pdf (7 pages, 127466 bytes).
+Output written on summary.pdf (7 pages, 128673 bytes).
 PDF statistics:
- 180 PDF objects out of 1000 (max. 8388607)
- 159 compressed objects within 2 object streams
- 48 named destinations out of 1000 (max. 500000)
- 94 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 186 PDF objects out of 1000 (max. 8388607)
+ 165 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 102 words of extra memory for PDF output out of 10000 (max. 10000000)
 

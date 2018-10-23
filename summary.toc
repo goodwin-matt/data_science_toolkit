@@ -1,6 +1,7 @@
 \select@language {english}
 \contentsline {section}{\numberline {1}Statistical Modeling}{2}{section.1}
 \contentsline {subsection}{\numberline {1.1}Overview and Theory}{2}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Decision Theory}{2}{subsubsection.1.1.1}
 \contentsline {subsection}{\numberline {1.2}Bias-Variance Tradeoff}{4}{subsection.1.2}
 \contentsline {subsection}{\numberline {1.3}Generalized Linear Models}{4}{subsection.1.3}
 \contentsline {subsubsection}{\numberline {1.3.1}Logistic Regression}{5}{subsubsection.1.3.1}

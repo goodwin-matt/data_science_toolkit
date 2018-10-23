@@ -128,24 +128,23 @@ Bishop has a really nice overview of some of these concepts. The starting point 
 \item Given an independent variable, determine the dependent variable (prediction).
 \end{enumerate}
 
-Using probability we can completely summarize the relationship and the uncertainty between the two variables with the joint distribution $P(X,Y)$. We use probability because in problems we are interested in we generally cannot come to a completely deterministic relationship between the independent and dependent variables. This is in part because the number of independent variables needed to perfectly determine the dependent variable is potentially infinite. 
+Using probability we can completely summarize the relationship and the uncertainty between the two variables with the joint distribution $P(X,Y)$. We use probability because in many problems we are interested in we generally cannot come to a completely deterministic relationship between the independent and dependent variables. This is partly because of measurement error, but also because the number of independent variables needed to perfectly determine the dependent variable is potentially infinite. 
 
-For example, imagine we wanted to predict the number of ice cream cones we sell on a particular day. Some variables such as the time of year or location of the ice cream store may provide us enough information to make a pretty good prediction or to understand the relationship between the independent and dependent variables fairly well. But to perfectly predict the number of ice cream cones we would need to know everything from the state of the road conditions, to whether or not a family from out of state decided to take a vacation. Since this is impossible we acknowledge variability and error in our estimates using probability.
+For example, imagine we wanted to predict the number of ice cream cones we sell on a particular day. Some variables such as the time of year or location of the ice cream store may provide us enough information to make a pretty good prediction or to understand the relationship between the independent and dependent variables fairly well. But to perfectly predict the number of ice cream cones we would need to know everything from the state of the road conditions, to whether or not a family from out-of-state decided to take a vacation. Since this is impossible we acknowledge variability and error in our estimates using probability.
 
-This has been a sticking point for me of how to understand this, but I think the key is to remember that the moment we use only a subset of all the possible features we would need for a perfectly deterministic relationship, then we must introduce uncertainty. We cannot say for certain that knowing today is July 1 will lead to high ice-cream sales, but we can say the probability is higher than January 1st. When I have a training sample $(x_1, y_1), (x_2, y_2), ... (x_n, y_n)$ I treat this as the truth (which it is) but I need to remember that this is coming from a distribution. I guess in that sense $P(X,Y)$ is a model itself, something we are forced to use because we don't know all the features needed for a deterministic relationship.
+I think the key to understanding this is to remember that the moment we use only a subset of all the possible features we would need for a perfectly deterministic relationship, then we must introduce uncertainty. We cannot say for certain that only knowing today is July 1 will lead to high ice-cream sales, but we can say the probability is higher than January 1st. When I have a training sample $(x_1, y_1), (x_2, y_2), ... (x_n, y_n)$,  I treat this as the truth (which it is) but I need to remember that these are draws coming from a distribution. I guess in that sense $P(X,Y)$ is a model itself, something we are forced to use because we don't know all the features needed for a deterministic relationship.
 
-As mentioned, we may want to perform inference, meaning understanding what $P(X,Y)$ looks like from a sample.  This can give us an understanding of how the variables are related (it can also allow us to do prediction but that is another step). In many practical applications we want to be able to predict $Y$ given $X$. This is where decision theory comes into play.
+\subsubsection{Decision Theory}
+As mentioned, we may want to perform inference, or in other words understand what $P(X,Y)$ looks like using information from a sample.  This can give us an understanding of how the variables are related. In many practical applications however, we want to be able to predict $Y$ given $X$. This is where decision theory comes into play. Decision theory is designed to help us make the optimal decision given inputs. Bishop gives a nice overview that I try and summarize in my own words below.
 
-Decision theory is designed to help us make the optimal decision given inputs. Bishop gives a nice overview that I try and summarize in my own words below.
-
-Lets approach this by treating the dependent variable $Y$ as a categorical variable taking on values 0 or 1. For simplicity assume $X$ is a single continuous variable. We then have for $P(X,Y)$ a three-dimensional distribution where $P(Y|X)$ is a probability mass function. When making a decision called the \emph{decision step} we formulate some rule that dived the input space into regions where if an instance falls into that region (based of $X$) it is predicted to be a 0 or 1. We want to minimize our mistakes as much as possible so we aren't assigning an instance to 0 when it should really be 1. The probability of mistake can be written as:
+Lets approach this by treating the dependent variable $Y$ as a categorical variable taking on values 0 or 1. For simplicity assume $X$ is a single continuous variable. We then have for $P(X,Y)$ a three-dimensional distribution where $P(Y|X)$ is a probability mass function. When making a decision called the \emph{decision step} we formulate some rule that divides the input space into \emph{decision regions}. If an instance falls into a certain decision region (based on $X$) it is predicted to be a 0 or 1. We want to minimize our mistakes as much as possible so we aren't assigning an instance to 0 when it should really be 1. The probability of a mistake can be written as:
 
 \begin{equation}
 P(mistake) = P(X\in R_1, 0) + P(X\in R_0, 1)
 \end{equation}
 where $R_1$ is the region where an instance is assigned a 1 and $R_0$ is the region where an instance is assigned a 0.
 
-Back to our example. Instead of ice cream sales, treat $Y$ as a categorical variable where 1 is a good ice cream day and 0 is bad.  If X = July 1st is in $R_1$ we decide to assign it a 1, based on our decision rule. However, even though our model $P(X,Y)$ says that the probability of a high selling day is high in this region, there is a still a chance that it is a low selling day because again, we are using a probability distribution since we don't have all of the features we need. The probability of it being a low selling day for all $X$ in $R_1$ is $P(X\in R_1, 0)$, which is a mistake.
+Back to our example. Instead of ice cream sales, treat $Y$ as a categorical variable where 1 is a good ice cream sales day and 0 is bad.  If $x_1$ = ``July 1st'' is in $R_1$ we decide to assign it a 1, based on our decision rule. However, even though our model $P(X,Y)$ says that the probability of a high-selling day ($Y=1$) is high in this region, there is a still a chance that it is a low-selling day because again, we are using a probability distribution for a model since we don't have all of the features we need for a deterministic model. The probability of it being a low-selling day for all $X$ in $R_1$ is $P(X\in R_1, 0)$, which is a mistake.
 
  \begin{figure}[t] \label{fig:bishop_optimal_distributions}
 \caption{Plot from Bishop showing visually the optimal decision boundary}
@@ -153,7 +152,9 @@ Back to our example. Instead of ice cream sales, treat $Y$ as a categorical vari
  \includegraphics[scale=.7]{bishop_optimal_distributions.png}
  \end{figure}
  
-We want to minimize our mistakes as much as possible so we choose regions where $P(X\in R_1, 0) + P(X\in R_0, 1)$ is as small as possible. To me it is easier to see by thinking of the probability of being correct which we want to maximize. The optimal decision boundary therefore is the location that creates $R_1$ and $R_0$ such that $P(X\in R_1, 1) >  P(X\in R_1, 0)$ everywhere in $R_1$ and $P(X\in R_0, 0) >  P(X\in R_0, 1)$ everywhere in $R_0$. If the decision boundary were shifted either way then we would loose out on area under the distribution of being correct. If we look at figure \ref{fig:bishop_optimal_distributions} then imagine the probability of being correct as all of the two humped distribution all colored in. If we went with $\hat{x}$ then we loose out on the red region for being correct.
+We want to minimize our mistakes as much as possible so we choose regions where $P(X\in R_1, 0) + P(X\in R_0, 1)$ is as small as possible. To me it is easier to see this by thinking of the probability of being correct instead of the probability of being incorrect. This changes the problem from one of minimization to one of maximization. The optimal decision boundary therefore is the location that creates $R_1$ and $R_0$ such that $P(X\in R_1, 1) >  P(X\in R_1, 0)$ everywhere in $R_1$ and $P(X\in R_0, 0) >  P(X\in R_0, 1)$ everywhere in $R_0$. If the decision boundary were shifted either way then we would loose out on area under the distribution of being correct. 
+
+To visualize this better refer to figure \ref{fig:bishop_optimal_distributions} from Bishop. If our decision boundary were at $x_0$ then the probability of being correct would be the two humped distribution completely colored in. This is the largest the probability of being correct can be. If we went with $\hat{x}$ however, then we loose out on the red region for being correct, which is suboptimal. (I like to think of a three dimensional distribution here whereas Bishop has an image with two different distributions which would need to be normalized appropriately but the concept is the same).
 
  We can use the product rule to write:
  
@@ -163,10 +164,7 @@ We want to minimize our mistakes as much as possible so we choose regions where 
  & =  P(1|X\in R_1) > P(0|X\in R_1) 
  \end{split}
  \end{equation}
- So we should chose the higher conditional probability for each region as well. TODO: I think this is the Bayes optimal decision rule?
- 
- 
-
+ So the maximization problem is equivalent to choosing the higher conditional probability for each region. This rule is known as the \emph{Bayes classifier} and the error rate of the Bayes classifier is known as the \emph{Bayes rate}. The Bayes classifier is used as a benchmark in classification as it is the optimal solution to classification if the probability distributions are known.
 
 
 Maybe one of the most simplest models to start with is the additive error model. This is given simply as:
@@ -252,10 +250,11 @@ The probability can be calculated by:
 \end{split}
 \end{equation}
 
+\subsection{Ensemble: Bagging}
 
-\subsection{Boosting}
+\subsection{Ensemble: Boosting}
 
-The concept of boosting has lead to some of the most powerful algorithms in machine learning. Boosting falls under a general class of algorithms known as ensembles (bagging would be another example of ensemble algorithms where we run separate models and then aggregate at the end by averaging for example). The general concept is that we run a weak learner on the original data, calculate the errors, run a new model on the errors, combine with the first weak learner, and repeat until some stopping criteria (that avoids overfitting).
+The concept of boosting has lead to some of the most powerful algorithms in machine learning. Boosting falls under a general class of algorithms known as ensembles (bagging would be another example of ensemble algorithms where we run separate models and then aggregate at the end by averaging). The general concept of boosting is that we use a weak learner to model the original data, calculate the errors, run a new weak learner model on the errors, combine the results with the first weak learner, and repeat until some stopping criteria (that avoids overfitting). 
 
 \subsubsection{Adaboost}
 
