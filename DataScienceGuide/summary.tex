@@ -177,7 +177,7 @@ For classification we can think of this function as a matrix known as the \emph{
 L(G, \hat{G}(X)).
 \end{equation}
 
-One issue with using this measure however is that we don't know the true class $G$. We can choose some decision rule to get us $\hat{G}$, but since we are dealing with probability distributions we won't know for sure whether the true class is a high-sales ice cream day or a low-sales ice cream day for example. Instead of minimizing the loss function then, we can minimize its expectation or in other words minimize the average loss function weighted by the probabilities for $G$ and $X$.
+One issue with using this measure however is that we don't know the true class $G$. We can choose some decision rule to get us $\hat{G}$, but since we are dealing with probability distributions we won't know for sure whether the true class is a high-sales ice cream day or a low-sales ice cream day for example. Instead of finding $\hat{G}$ that minimizes the loss function, we can instead minimize the expectation of the loss function or in other words minimize the average loss function weighted by the probabilities for $G$ and $X$.
 
 \begin{equation}
 \begin{split}
@@ -226,7 +226,17 @@ E_{T}[E[L(G, \hat{G(X)})|T]] &= E_{T}[E_{G,X}[L(G, \hat{G(X)})|T]] \\
 &= E[L(G, \hat{G}(X))]
 \end{split}
 \end{equation}
-ELSII calls this the \emph{expected test error} or \emph{expected prediction error}.\\
+ELSII calls this the \emph{expected test error} or \emph{expected prediction error}. This measures how well our average model generalizes to the entire population, where average model is referring to the average model over all training sets $T$. \\
+
+Really our goal at this point would be to find the prediction error for a given training set $T$. This is the goal because we are only given one training set and we want to know what the generalization error is over the entire distribution of $Y, X$ for the model derived from that training set. It appears that this is harder to do in practice and most methods actually estimate the \emph{expected} prediction error better. Therefore we will focus on estimating the expected prediction error. See ESLII pg. 220 for more discussion.
+
+The discussion of the loss functions above uses random variables and expectations and is referring to when we know the distributions involved. In practice however, we are only given a sample from that distribution and so when finding a model we use whats known as the \emph{cost function} which adds up the loss function for each data point being used:
+
+\begin{equation}
+J(\theta) = \sum_{i=1}^{N}{L(g_i, \hat{G_\theta}(x_i))}
+\end{equation}
+
+
 
 \noindent TODO: Show graphs of general loss functions - see Stanford machine learning cheat sheet \newline
 TODO: I think the expected loss is also known as the Risk function \newline
@@ -250,19 +260,34 @@ and variance of a model is:
 \begin{equation}
 \text{Var}\left(\hat{f}(X)\right) = E \left[\hat{f}(X)^2\right] - E \left[\hat{f}(X)\right]^2. 
 \end{equation}
-Knowing these definitions we can then take the expected loss function and perform the following decomposition:
+Knowing these definitions we can then take the expected loss function and perform the following decomposition (assuming squared error loss):
 
 \begin{equation}
 \begin{split}
-E_{X,Y}[E_{T}[L(Y, \hat{f}(X))]] & = E_{T}[E_{T}[L(Y, \hat{f}(X))]]
+E[L(Y, \hat{f}(X))] & = E_{T}[E_{Y,X}[L(Y, \hat{f(X)})|T]] \\
+&= E_{X,Y|T}[E_{T}[L(Y, \hat{f(X)})]]  \quad \text{(Drop $|T$ at this point since inner expectation is over $T$)}\\
+&= E_{X,Y}[E_{T}[(Y - \hat{f}(X))^2]] \\
+&= E_{X,Y}[E_{T}[(Y^2 - 2Y\hat{f}(X) + \hat{f}(X)^2)]] \\
+&= E_{X,Y}[E_{T}[Y^2] - E_{T}[2Y\hat{f}(X)] + E_{T}[\hat{f}(X)^2] + E_{T}[\hat{f}(X)]^2 - E_{T}[\hat{f}(X)]^2]\\
+&= E_{X,Y}[Y^2 -  2YE_{T}[\hat{f}(X)] + E_{T}[\hat{f}(X)^2] + \text{Var}_{T}(\hat{f}(X))]\\
+&=E_{X,Y}[(Y - E_{T}[\hat{f}(X)])^2 + \text{Var}_{T}(\hat{f}(X))] \\
+&= E_{X,Y}[\text{Bias}_{T}(\hat{f}(X))^2 + \text{Var}_{T}(\hat{f}(X))] 
 \end{split}
 \end{equation}
+This shows that for the squared error loss we can decompose the expected loss function into a bias term and a variance term. There is typically an irreducible error term in most decompositions but those decompositions make additional assumptions (such as constant variance) and I wanted to stay more general. In reality the irreducible error term is rolled up in the expectation over $X,Y$. One another note to make here is that I think we can drop the condition on $T$ since the only quantity that depends on $T$ is the model $\hat{f}(x)$ and since the model is wrapped up in an expectation over $T$ then we don't need to worry about the conditional.
+
+What this decomposition reveals are different sources for error. The variance term reveals how much a model varies over training sets. The bias term reveals how far off our model is averaged over all training sets. Different models perform differently in regards to these two terms. Linear regression for example has high bias (meaning if we average over all training sets, the model is relatively wrong), but low variance (the model won't change drastically with a new training dataset). Decision trees are the opposite - they have low bias (over all training sets the average tree is relatively not too far off the truth), but high variance (decision trees can look completely different depending on the given training dataset).
+
+It appears that ensembles can decrease both sources of error by averaging low bias models. When we take an average the variance decreases (see discussion on Bagging and Random Forest).
+
+One issue that isn't as satisfying to me here is that this neat decomposition is for squared-error loss only. Most textbooks leave the bias-variance decomposition at this point. What bugs me is there is really no discussion about this decomposition for a \emph{general} loss function. One paper I found that addresses this issue (sort-of) is found \href{https://homes.cs.washington.edu/~pedrod/bvd.pdf}{here} by Pedro Dominguez. I'd like to explore this a little more. Also see \href{https://github.com/rasbt/mlxtend/blob/master/docs/sources/user_guide/evaluate/bias_variance_decomp.ipynb?utm_campaign=Data_Elixir&utm_source=Data_Elixir_210}{here} for a python package that gives you the decomposition and refers to the Dominguez paper.
+
 
 
 
 \subsubsection{Generative vs. Discriminative Models}
 
-The previous discussions about probability distributions that explain the relationship between dependent and independent variables sets us up nicely for understanding what generative vs. discriminative models are. \textbf{Generative models} are models that attempt to find or approximate the original distribution $P(X,Y)$. They are called generative because once we've found a generative model we can \emph{generate} synthetic data from the model, inputs AND outputs. We can also use generative models to make predictions by using Bayes rule to find the posterior distribution $P(Y|X)$ and then use decision theory to make the prediction (essentially assign the instance to the class with the highest probability distribution). \textbf{Discriminative models} attempt to model the posterior density $P(Y|X)$ directly and then use decision theory to make predictions using that posterior density. 
+The previous discussions about probability distributions that explain the relationship between dependent and independent variables sets us up nicely for understanding what generative vs. discriminative models are. \textbf{Generative models} are models that attempt to find or approximate the original distribution $P(X,Y)$. They are called generative because once we've found a generative model we can \emph{generate} synthetic data from the model, inputs AND outputs. We can also use generative models to make predictions by using Bayes rule to find the posterior distribution $P(Y|X)$ and then use decision theory to make the prediction (essentially assign the instance to the class with the highest probability distribution, if we are using a traditional loss function). \textbf{Discriminative models} attempt to model the posterior density $P(Y|X)$ directly and then use decision theory to make predictions using that posterior density. 
 
 Both of these approaches first do whats called the \emph{inference stage} (finding the distribution) and then use the posterior probabilities in the \emph{decision stage}. A third option exists where we directly find a function $f(X)$ that maps inputs to outputs. The function $f(X)$ is known as a \emph{discriminant function}.
 
@@ -297,16 +322,6 @@ The discriminative model $P(Y|X)$ allows for completely summarizing the way $Y$ 
 We can also go the other direction by thinking of the discriminative model $P(Y|X)$ as the equation $y_i = f(x_i) + \epsilon_i$ but not putting constraints of any kind on $\epsilon_i$. The idea is that there is some "true function" out there and then there are some errors off of that true function that gives us our dependent variable.
 
 In either case the next step is to then think of other modeling assumption for $f(x_i)$ such as the linear model.
-
-\begin{equation}
-Y = f(X) + \epsilon
-\end{equation}
-
-
-\begin{equation}
-L(Y - \hat{f}(X)) = (Y - \hat{f}(X))^2
-\EX[L(Y - \hat{f}(X))]
-\end{equation}
 
 
 \subsection{Generalized Linear Models}
@@ -368,11 +383,46 @@ The probability can be calculated by:
 
 \subsection{Ensemble: Bagging}
 
+Bagging (bootstrap aggregating) is based on the concept that the variance of averaged random variables is less than the variance of the random variables individually. To see this say we have a random sample $X_1,..., X_N$ where the mean of $X_i$ is $\mu$ and the variance is $\sigma^2$ . The expected value of the average of this random sample is $\frac{1}{N}\sum_{i=1}^N{E[X_i]}$ and the variance can be decomposed as:
+
+\begin{equation}
+\begin{split}
+Var \left(\frac{1}{N}\sum_{i=1}^N{X_i} \right) &=  E\left[ \left(\frac{1}{N}\sum_{i=1}^N{X_i}\right)^2 \right] - E\left[\frac{1}{N}\sum_{i=1}^N{X_i}\right]^2 \\
+&= E\left[ \left(\frac{1}{N}\right)^2 \left(\sum_{i=1}^N{X_i}\right)^2 \right] - \left(\frac{1}{N} \right)^2 E\left[\sum_{i=1}^N{X_i}\right]^2 \\
+&= \left(\frac{1}{N} \right)^2 \left( E\left[\left(\sum_{i=1}^N{X_i}\right)^2 \right] - E\left[\sum_{i=1}^N{X_i}\right]^2    \right) \\
+&= \left(\frac{1}{N} \right)^2 Var\left(\sum_{i=1}^N{X_i}\right)\\
+&= \left(\frac{1}{N} \right)^2 N \sigma^2\\
+&= \frac{\sigma^2}{N}
+\end{split}
+\end{equation}
+The second to last step is possible because the $X_i$ are independent and the variance of a sum of independent variables is the sum of the variances. Since $X_i$ are identically distributed then the variance will be $\sigma^2$ for all $X_i$.
+
+This same idea applies to predictors or models. To apply this concept to models, $B$ bootstrapped samples are derived and a model $\hat{f}^b(x)$ is built on each sample. These samples are then averaged together:
+
+\begin{equation}
+\hat{f}_{bag}(x) = \frac{1}{B} \sum_{b=1}^B{\hat{f}^b(x)}.
+\end{equation}
+
+TODO: Expound on bagging a little more especially the connection to a posterior Bayes mean, squared error vs. 0-1, and the error breakdown between bagging vs. single model.
+
+TODO: The method of bagging mentioned previously is an attempt to reduce the variance of models by averaging them together. This seems to work particularly well for noisy, high-variance models such as trees. When we average these trees together the bias does not decrease (related to the idea that the expected value of a random variable is the same as the expected value of the average of i.d. random variables), but the variance does decrease. The amount it decreases depends on whether or not the random variables are i.i.d. or i.d. If i.i.d then variance decreases by a factor of $N$
+
+\subsection{Ensemble: Random Forrest}
+
+Bagging averages models together to reduce error, in particular the variance component to the error. As mentioned, this is analogous to averaging i.i.d. random variables together with variance $\sigma^2$ leading to an overall variance of $\frac{\sigma^2}{B}$ where $B$ are the number of random variables in the average. 
+
+The issue with this approach is when the models (or random variables in our analogy) are correlated. This is the case when using decision trees for example. If use our random variable analogy then 
+
+
+
+\subsection{Ensemble: Bumping}
+This is where we train models on various bootstrapped samples and choose the best bootstrapped sample and the model on that sample. Essentially we are expanding the space of possible models.
+
 \subsection{Ensemble: Boosting}
 
 The concept of boosting has lead to some of the most powerful algorithms in machine learning. Boosting falls under a general class of algorithms known as ensembles (bagging would be another example of ensemble algorithms where we run separate models and then aggregate at the end by averaging). The general concept of boosting is that we use a \emph{weak learner} (a model that does only slightly better than random guessing) to model the original data, calculate the errors, run a new weak learner model on the errors, combine the results with the first weak learner, and repeat until some stopping criteria (that avoids overfitting). Thus boosting algorithms stack multiple learners on top of each other instead of modeling separately and then combining in some way at the end like bagging.
 
-At its heart boosting is really a simple basis function expansion or an additive model. This type of model attempts to approximate a function by treating it as a linear combination of other functions, usually more simple functions. 
+At its heart boosting is really a simple basis function expansion or an additive model. This type of model attempts to approximate a function by treating it as a linear combination of other functions, usually more simple functions:
 
 \begin{equation} \label{eq:basis_optimization}
 f(x) = \sum^{M}_{m=1} {\beta_m b(x; \gamma_m)}
@@ -380,11 +430,85 @@ f(x) = \sum^{M}_{m=1} {\beta_m b(x; \gamma_m)}
 where $\beta_m$ are the basis function coefficients and $b(x; \gamma_m)$ are the basis functions with parameters $\gamma_m$. 
 The ideal way of fitting this model would be to minimize some loss function by finding the optimal parameters $\gamma_m$ and coefficients $\beta_m$ (both for all $m$) all at once, but in practice this can be computationally intensive. 
 
-An alternative to this approach which approximates the optimal solution to \ref{eq:basis_optimization} is \emph{forward stagewise additive modeling}. Instead of optimizing over all basis functions we instead optimize over one basis function at a time:
+An alternative to this approach which approximates the optimal solution to \ref{eq:basis_optimization} is \emph{forward stagewise additive modeling}. Instead of optimizing over all basis functions at once we instead optimize over one basis function at a time while keeping all previously found basis functions fixed. To be more clear we first fit a weak learner $f_0(x)$ to the data and then in a loop we find models for $m=1$ to $M$ minimizing the cost function over the training data:
+
+\begin{equation}
+(\beta_m, \gamma_m) = \text{arg min}_{\beta, \gamma} \sum_{i=1}^{N}{L(y_i, f_{m-1}(x_i) + \beta b(x_i;\gamma))}
+\end{equation}
+
+\begin{equation}
+f_m(x) = f_{m-1}(x) + \beta_m b(x;\gamma_m)
+\end{equation}
+This last equation is the recursive relationship that is often written out to describe boosting but more generally with different notation might be written out as:
+
+\begin{equation} \label{eq:recursive}
+F_m(x) = F_{m-1}(x) + f_m(x)
+\end{equation}
+
+Any loss function can be used, but its interesting to look at the scenario when the loss function is the squared error loss. In this case we would have:
+
+\begin{equation}
+\begin{split}
+(\beta_m, \gamma_m)  & = \text{arg min}_{\beta, \gamma} \sum_{i=1}^{N}{L(y_i, f_{m-1}(x_i) + \beta b(x_i;\gamma))}\\
+&= \text{arg min}_{\beta, \gamma} \sum_{i=1}^{N}{(y_i - f_{m-1}(x_i) - \beta b(x_i;\gamma))^2}\\
+&= \text{arg min}_{\beta, \gamma} \sum_{i=1}^{N}{(r_{im} - \beta b(x_i;\gamma))^2}
+\end{split}
+\end{equation}
+where $r_{im}$ is the residual between the previous model's prediction and the observed target value $y_i$. This implies that when using the squared loss function we are training the $m^{th}$ model on the error of the previous model, which in multiple dimensions is a vector giving us direction and magnitude (this is key when thinking of how this relates to the gradient). The resulting $m^{th}$ model will then be an approximation (not perfect, no models ever are) to the error which is then added to the $(m-1)^{th}$ model to help correct that model. From this perspective we can think of each subsequent model as attempting to approximate the error of the previous model and account for that error in the overall model.
+
+We can use different loss functions that lead to different insights. For example, if we use the absolute value error loss we will end up training our weak learners on the $sign$ function. If we use the exponential loss function then we get Adaboost which is discussed in section \ref{section:ada}.
+
+\subsubsection{Gradient Boosting}
+
+The discussion in the previous discussion is fairly straightforward and intuitive, especially when considering the squared loss function. However, we can better generalize and relate the concepts above to some well established mathematical techniques to give better clarity, namely the gradient descent algorithm. 
+
+The gradient or steepest descent algorithm is an iterative optimization technique to find the minimum of a function. There is no guarantee that we will be able to find the global minimum, instead we settle for a local minimum that is hopefully near the global minimum. There are different related techniques to gradient descent but gradient descent is the classic. A good overview of gradient descent methods is found \href{http://www.acme.byu.edu/wp-content/uploads/2018/02/GradientMethods.pdf}{here}, which TODO: I briefly summarize below. TODO: put this in an optimization section?
+
+The general gradient descent algorithm is typically written as:
+\begin{equation}
+x_t = x_{t-1} + \eta \left( -\nabla f(x_{t-1}) \right)
+\end{equation}
+
+Notice that this is a recurrence relationship, very similar to the one mentioned in \ref{eq:recursive}. Here the goal is to find the location $x_t$ that minimizes the function $f$. For gradient boosting however, we can plug in $F_m(x)$ for $x_t$. The function $f(x_{t-1})$ can be substituted by the loss function $L$. This gives us:
+
+\begin{equation}
+F_m(x) = F_{m-1}(x) + \eta \left (-\nabla L(y, F_{m-1}(x)) \right)
+\end{equation}
+
+If we were to write out the vectors in this equation for $(x_i, y_i), i=1,...,N$ we would have:
+
+\begin{equation}
+\begin{bmatrix}
+F_m(x_1) \\
+... \\
+F_m(x_N)
+\end{bmatrix} = 
+\begin{bmatrix}
+F_{m-1}(x_1) \\
+... \\
+F_{m-1}(x_N)
+\end{bmatrix} + \eta \left(- 
+\begin{bmatrix}
+\frac{\partial L(y_1, F_{m-1}(x_1)}{\partial F_{m-1}(x_1)} \\
+... \\
+\frac{\partial L(y_N, F_{m-1}(x_N)}{\partial F_{m-1}(x_N)}
+\end{bmatrix}
+\right)
+\end{equation}
+If the loss function is the squared error loss then $\nabla L(y, F_{m-1}(x))$  will become $-2(y - F_{m-1}(x))$ which is the residual, or the error between the $m-1^{th}$ model and the true dependent variable. This implies then that when we train each subsequent model on the residual we are in reality performing gradient descent in prediction space and are iteratively approaching the minimum of the loss function which implies we are getting closer to the target values. We can summarize the general gradient boosting algorithm as follows:
+
+\begin{enumerate}
+\item Train a weak learner $F_0(x)$ on the original training data $(x,y)_T$.
+\item Train a weak learner on $-\nabla L(y, F_{0}(x))$.
+\item Add this weak learner to $F_0(x)$ to get $F_1(x)$.
+\item Repeat for $m=1$ to $M$ until some stopping criteria.
+\end{enumerate}
+
+TODO: Expand this out for decision trees and for XGBoost
 
 
+\subsubsection{Adaboost} \label{section:ada}
 
-\subsubsection{Adaboost}
 
 
 \section{Terms and Notation}
