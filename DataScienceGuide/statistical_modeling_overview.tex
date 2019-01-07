@@ -1,0 +1,247 @@
+\subsection{Overview}
+
+When discussing modeling it is important to keep in mind that ``all models are wrong but some are useful'' \footnote{attributed to George Box}. The world is extremely complex and it can be impossible to create a model that perfectly approximates the underlying mechanisms that make our world turn.
+
+There are different approaches to modeling depending on the discipline you come from, but personally I like the idea of the function approximation approach suggested by applied math and statistics. This is the approach that ESLII takes. Taking this approach allows us to use probability theory combined with decision theory.
+
+Bishop, from his book \emph{Pattern Recognition and Machine Learning}, has a really nice overview of some of these concepts. The starting point I think for modeling in a supervised setting at least starts with the independent variable or covariate $X$ and dependent variable $Y$ (see \hyperref[sec:notation]{notation} section). We want to know:
+
+\begin{enumerate}
+\item The nature of the relationship between the variables (inference). 
+\item Given an independent variable, determine the dependent variable (prediction).
+\end{enumerate}
+
+Using probability we can completely summarize the relationship and the uncertainty between the two variables with the joint distribution $P(X,Y)$. We use probability because for many problems we are interested in, we generally cannot come to a completely deterministic relationship between the independent and dependent variables. This is partly because of measurement error, but also because the number of independent variables needed to perfectly determine the dependent variable is potentially infinite. 
+
+For example, imagine we wanted to predict the number of ice cream cones we will sell on a particular day. Some variables such as the time of year or location of the ice cream store may provide us enough information to make a pretty good prediction or to understand the relationship between the independent and dependent variables fairly well. But to perfectly predict the number of ice cream cones we would need to know everything from the state of the road conditions, to whether or not a family from out-of-state decided to take a vacation. Since this is impossible, we acknowledge variability and error in our estimates using probability.
+
+I think the key to understanding this is to remember that the moment we use only a subset of all the possible features we would need for a perfectly deterministic relationship, then we must introduce uncertainty. We cannot say for certain that only knowing today is July 1 will lead to high ice-cream sales, but we can say the probability is higher than January 1st. When I have a training sample $(x_1, y_1), (x_2, y_2), ... (x_n, y_n)$,  I treat this as the truth (which it is) but I need to remember that these are draws coming from a distribution. I guess in that sense $P(X,Y)$ is a model itself, something we are forced to use because we don't know all the features needed for a deterministic relationship. 
+
+One side note to make here is, as ESLII mentions, sometimes the relationship IS deterministic but the randomness comes from the fact that we have limited data. If we have a different training data set then we get different results but the underlying relationship is still the same since it is deterministic. These types of problems can be handled by similar techniques where the relationship between the variables is probabilistic (see pg 28 of ESLII).
+
+Along the above point, it may be tempting to think that the more features the better because we would be getting closer to a deterministic relationship where we could predict perfectly. The issue with this however is related to the problem just mentioned that when we build models we have only a sample from the distribution. We could then start to tune our model to the specific data set but not the true distribution. So I imagine a lot of features would be fine to have, but only if we have more and more data that approximate the true distribution.
+
+\subsection{Decision Theory}
+As mentioned, we may want to perform inference, or in other words understand what $P(X,Y)$ looks like using information from a sample.  This can give us an understanding of how the variables are related. In many practical applications however, we want to be able to predict $Y$ given $X$. This is where decision theory comes into play. Decision theory is designed to help us make the optimal decision given inputs. Bishop gives a nice overview that I try and summarize in my own words below.
+
+Lets approach this by treating the dependent variable $Y$ as a categorical variable taking on values 0 or 1. For simplicity assume $X$ is a single continuous variable. We then have for $P(X,Y)$ a three-dimensional distribution where $P(Y|X)$ is a probability mass function. When making a decision called the \emph{decision step} we formulate some rule that divides the input space into \emph{decision regions}. If an instance falls into a certain decision region (based on $X$) it is predicted to be a 0 or 1. We want to minimize our mistakes as much as possible so we aren't assigning an instance to 0 when it should really be 1. The probability of a mistake can be written as:
+
+\begin{equation}
+P(mistake) = P(X\in R_1, 0) + P(X\in R_0, 1)
+\end{equation}
+where $R_1$ is the region where an instance is assigned a 1 and $R_0$ is the region where an instance is assigned a 0.
+
+Back to our example. Instead of ice cream sales, treat $Y$ as a categorical variable where 1 is a ``good'' ice cream sales day and 0 is ``bad''.  If $x_1$ = ``July 1st'' is in $R_1$ we decide to assign it a 1, based on our decision rule. However, even though our model $P(X,Y)$ says that the probability of a high-selling day ($Y=1$) is high in this region, there is a still a chance that it is a low-selling day because again, we are using a probability distribution for a model since we don't have all of the features we need for a deterministic model. The probability of it being a low-selling day for all $X$ in $R_1$ is $P(X\in R_1, 0)$, which is a mistake.
+
+ \begin{figure}[t] \label{fig:bishop_optimal_distributions}
+\caption{Plot from Bishop showing visually the optimal decision boundary}
+\centering
+ \includegraphics[scale=.7]{bishop_optimal_distributions.png}
+ \end{figure}
+ 
+We want to minimize our mistakes as much as possible so we choose regions where $P(X\in R_1, 0) + P(X\in R_0, 1)$ is as small as possible. To me it is easier to see this by thinking of the probability of being correct instead of the probability of being incorrect. This changes the problem from one of minimization to one of maximization. The optimal decision boundary therefore is the location that creates $R_1$ and $R_0$ such that $P(X\in R_1, 1) >  P(X\in R_1, 0)$ everywhere in $R_1$ and $P(X\in R_0, 0) >  P(X\in R_0, 1)$ everywhere in $R_0$. If the decision boundary were shifted either way then we would loose out on area under the distribution of being correct. 
+
+To visualize this better refer to figure \ref{fig:bishop_optimal_distributions} from Bishop which is on pg 40 in his book. If our decision boundary were at $x_0$ then the probability of being correct would be the two humped distribution completely colored in. This is the largest the probability of being correct can be. If we went with $\hat{x}$ however, then we loose out on the red region for being correct, which is suboptimal. (I like to think of a three dimensional distribution here whereas Bishop has an image with two different distributions which would need to be normalized appropriately but the concept is the same).
+
+ We can use the product rule to write:
+ 
+ \begin{equation}
+ \begin{split}
+ P(X\in R_1, 1) >  P(X\in R_1, 0)  & \implies  P(1|X\in R_1) P(X \in R_1) > P(0|X\in R_1) P(X \in R_1) \\
+ & \implies  P(1|X\in R_1) > P(0|X\in R_1) 
+ \end{split}
+ \end{equation}
+ So the maximization problem is equivalent to choosing the higher conditional probability for each region. This rule is known as the \emph{Bayes classifier} and the error rate of the Bayes classifier is known as the \emph{Bayes rate}. The Bayes classifier is used as a benchmark in classification as it is the optimal solution to classification if the probability distributions are known.
+ 
+\subsection{Expected Loss Function}
+Embedded in the above discussion describing how to find the optimal decision rule is a concept called the \emph{loss function}. This is a function that takes as input the true class and predicted class (resulting from the chosen decision rule) and outputs a value encoding the error of the prediction. We can use this formulation to find the optimal decision rule by minimizing the function with respect to the decision rule.
+
+In the above examples we assume that the loss function is outputting a 0 for each class predicted correctly and a 1 for each class predicted incorrectly, so in other words all classes are weighted the same in terms of misclassification (this is also known as the 0-1 loss function). In some applications however, such as medical diagnosis, we want to weight some classes higher than others when calculating misclassification. For example, when diagnosing cancer it is much better to predict someone who is healthy as having cancer than the other way around.
+
+For classification we can think of this function as a matrix known as the \emph{loss matrix}, but in general we can think of it as taking in two variables - the true class and the predicted class:
+
+\begin{equation}
+L(G, \hat{G}(X)).
+\end{equation}
+
+One issue with using this measure however is that we don't know the true class $G$. We can choose some decision rule to get us $\hat{G}$, but since we are dealing with probability distributions we won't know for sure whether the true class is a high-sales ice cream day or a low-sales ice cream day for example. Instead of finding $\hat{G}$ that minimizes the loss function, we can instead minimize the expectation of the loss function or in other words minimize the average loss function weighted by the probabilities for $G$ and $X$.
+
+\begin{equation}
+\begin{split}
+E[L(G, \hat{G}(X))] & = \iint_{G, X} {L(G, \hat{G}(X)) P(G, X) dG dX} \\
+& = \int_{X} \sum_{k=1}^{K} {L(G_k, \hat{G}(X)) P(G_k|X) P(X) dX} \\
+&= E_{X} \sum_{k=1}^{K} {L(G_k, \hat{G}(X)) P(G_k|X)}
+\end{split}
+\end{equation}
+where $k=1,...K$ are all of the classes, in our example either 0 or 1. We want to find a classifier $\hat{G}(X)$ such that the expected loss is minimal. To do this we can minimize the inner quantity pointwise since this corresponds to the minimum of the entire quantity (the minimum of an average is the minimum of the separate quantities in the average). This leads us to write:
+
+\begin{equation}
+\hat{G(x)} = \text{argmin}_{g \in G} \sum_{k=1}^{K} {L(G_k, g) P(G_k|X)}
+\end{equation}
+If we are using the 0-1 loss function then we can simplify this to:
+
+\begin{equation}
+\hat{G(x)} = \text{argmin}_{g \in G} \left[1 - P(g|X=x) \right].
+\end{equation}
+This took some thought for me to understand why we could simplify down to this. I think the best way to see it is to remember that this is a function of $g$. If we have $K=3$ for example then we can write out for each possible value of $G_k$:
+
+\begin{equation}
+\begin{split}
+g=G_1 & \implies P(G_2|X=x) + P(G_3|X=x) \implies 1-P(G_1|X=x)\\
+g=G_2 & \implies P(G_1|X=x) + P(G_3|X=x) \implies 1-P(G_2|X=x)\\
+g=G_3 & \implies P(G_1|X=x) + P(G_2|X=x) \implies 1-P(G_3|X=x)\\
+\end{split}
+\end{equation}
+since our loss function is 0 when it is a true classification and 1 when it is a misclassification. Since we are minimizing, the best choice for $g$ is the one where $P(g|X=x)$ is the largest (for each $x$) which corresponds to the Bayes classifier. Thus, we have proven that under the 0-1 loss function, the optimal decision is the Bayes classifier as we found in our previous discussion. Note that this is optimal when we know the distribution which most times we don't.
+
+When we look more closely at the expected loss function $E[L(G, \hat{G}(X))]$, implied in here is some decision that is made that is represented by $\hat{G}(X)$. In the previous discussion we came to that decision by directly minimizing the loss function, and this is exactly what we would want to do if the distribution is known (in other words, given that the best we can do is a probability distribution to describe the relationship between $X$ and $Y$, and assuming a 0-1 loss, then the previous decision is as good as it gets!). Lets pretend however that we can only find $\hat{G}(X)$ from a given sample of the distribution or in other words training data. This sample is considered random, which implies that we are omitting or hiding an important random variable - the random variable representing the sampling process. To see this better we should then write the expectation above in the form of two expectations. The first is known as the \emph{test error}, the \emph{generalization error}, or \emph{prediction error}, all according to ESLII:
+
+\begin{equation}
+E[L(G, \hat{G}(X))|T].
+\end{equation}
+The variable $T$ represents a training set that we use to make a decision rule $\hat{G}(X)$. The training set $T$ is fixed in this expectation and the expectation is over the entire distribution of $X$ and $G$. Optimizing this expectation now should be different because of the dependence on $T$. Essentially, this is measuring the expected loss on potential new data fed into a model that was built on a given training set $T$. It is measuring how well our model generalizes to the entire population based off a model built on $T$. Of course this is all theoretical and is assuming we know the distribution $P(X,Y)$ when taking the expectation (which we probably won't).
+
+If we take an expectation over all training sets and everything that is random then we have the original expected loss talked about earlier:
+
+\begin{equation}
+\begin{split}
+E_{T}[E[L(G, \hat{G(X)})|T]] &= E_{T}[E_{G,X}[L(G, \hat{G(X)})|T]] \\
+&= E_{T}\left[\iint_{G, X} {L(G, \hat{G}(X)) P(G,X|T) dG dX}\right]\\
+&= \iiint_{G, X, T} {L(G, \hat{G}(X)) P(G,X|T) P(T) dG dX dT} \\
+&= \iiint_{G, X, T} {L(G, \hat{G}(X)) P(G,X,T) dG dX dT}\\
+&= E_{G,X,T}[L(G, \hat{G}(X))]\\
+&= E[L(G, \hat{G}(X))]
+\end{split}
+\end{equation}
+ELSII calls this the \emph{expected test error} or \emph{expected prediction error}. This measures how well our average model generalizes to the entire population, where average model is referring to the average model over all training sets $T$. \\
+
+Really our goal at this point would be to find the prediction error for a given training set $T$. This is the goal because we are only given one training set and we want to know what the generalization error is over the entire distribution of $Y, X$ for the model derived from that training set. It appears that this is harder to do in practice and most methods actually estimate the \emph{expected} prediction error better. Therefore we will focus on estimating the expected prediction error. See ESLII pg. 220 for more discussion.
+
+The discussion of the loss functions above uses random variables and expectations and is referring to when we know the distributions involved. In practice however, we are only given a sample from that distribution and so when finding a model we use whats known as the \emph{cost function} which adds up the loss function for each data point being used:
+
+\begin{equation}
+J(\theta) = \sum_{i=1}^{N}{L(g_i, \hat{G_\theta}(x_i))}
+\end{equation}
+
+
+
+\noindent TODO: Show graphs of general loss functions - see Stanford machine learning cheat sheet \newline
+TODO: I think the expected loss is also known as the Risk function \newline
+TODO: Show the regression loss function formulation. Note that the conditional mean is the optimal decision under the least squares loss just like the Bayes classifier is under the 0-1 loss. These loss functions are nice theoretically but may not be realistic in practice \newline
+TODO: Explore the idea that the conditional mean is optimal IF we know the distribution just like the Bayes Classifier is optimal IF we know the distribution. \newline
+TODO: Explore the dimensionality issue
+
+\subsection{Bias-Variance Tradeoff}
+
+The bias-variance tradeoff refers to two sources of error when evaluating models - the bias and the variance. There is also a third source of error which we call the ``irreducible error''. 
+
+As explained in \href{https://towardsdatascience.com/mse-and-bias-variance-decomposition-77449dd2ff55}{this} article, there is a slight confusion in data science between decomposing the error for an \gls{estimator}, and decomposing the error for a model or a predictor. The decomposition is really about the same but there are some key insights to be aware of. The decomposition below is for a predictor. The decomposition for an estimator can be found in various books and other resources such as Casella/Berger. 
+
+First of all the bias of a model is defined as:
+
+\begin{equation}
+\text{Bias}\left(\hat{f}(X)\right) = E \left[\hat{f}(X) - f(X)\right]
+\end{equation}
+and variance of a model is:
+
+\begin{equation}
+\text{Var}\left(\hat{f}(X)\right) = E \left[\hat{f}(X)^2\right] - E \left[\hat{f}(X)\right]^2. 
+\end{equation}
+Knowing these definitions we can then take the expected loss function and perform the following decomposition (assuming squared error loss):
+
+\begin{equation}
+\begin{split}
+E[L(Y, \hat{f}(X))] & = E_{T}[E_{Y,X}[L(Y, \hat{f(X)})|T]] \\
+&= E_{X,Y|T}[E_{T}[L(Y, \hat{f(X)})]]  \quad \text{(Drop $|T$ at this point since inner expectation is over $T$)}\\
+&= E_{X,Y}[E_{T}[(Y - \hat{f}(X))^2]] \\
+&= E_{X,Y}[E_{T}[(Y^2 - 2Y\hat{f}(X) + \hat{f}(X)^2)]] \\
+&= E_{X,Y}[E_{T}[Y^2] - E_{T}[2Y\hat{f}(X)] + E_{T}[\hat{f}(X)^2] + E_{T}[\hat{f}(X)]^2 - E_{T}[\hat{f}(X)]^2]\\
+&= E_{X,Y}[Y^2 -  2YE_{T}[\hat{f}(X)] + E_{T}[\hat{f}(X)^2] + \text{Var}_{T}(\hat{f}(X))]\\
+&=E_{X,Y}[(Y - E_{T}[\hat{f}(X)])^2 + \text{Var}_{T}(\hat{f}(X))] \\
+&= E_{X,Y}[\text{Bias}_{T}(\hat{f}(X))^2 + \text{Var}_{T}(\hat{f}(X))] 
+\end{split}
+\end{equation}
+This shows that for the squared error loss we can decompose the expected loss function into a bias term and a variance term. There is typically an irreducible error term in most decompositions but those decompositions make additional assumptions (such as constant variance) and I wanted to stay more general. In reality the irreducible error term is rolled up in the expectation over $X,Y$. One another note to make here is that I think we can drop the condition on $T$ since the only quantity that depends on $T$ is the model $\hat{f}(x)$ and since the model is wrapped up in an expectation over $T$ then we don't need to worry about the conditional.
+
+What this decomposition reveals are different sources for error. The variance term reveals how much a model varies over training sets. The bias term reveals how far off our model is averaged over all training sets. Different models perform differently in regards to these two terms. Linear regression for example has high bias (meaning if we average over all training sets, the model is relatively wrong), but low variance (the model won't change drastically with a new training dataset). Decision trees are the opposite - they have low bias (over all training sets the average tree is relatively not too far off the truth), but high variance (decision trees can look completely different depending on the given training dataset).
+
+It appears that ensembles can decrease both sources of error by averaging low bias models. When we take an average the variance decreases (see discussion on Bagging and Random Forest).
+
+One issue that isn't as satisfying to me here is that this neat decomposition is for squared-error loss only. Most textbooks leave the bias-variance decomposition at this point. What bugs me is there is really no discussion about this decomposition for a \emph{general} loss function. One paper I found that addresses this issue (sort-of) is found \href{https://homes.cs.washington.edu/~pedrod/bvd.pdf}{here} by Pedro Dominguez. I'd like to explore this a little more. Also see \href{https://github.com/rasbt/mlxtend/blob/master/docs/sources/user_guide/evaluate/bias_variance_decomp.ipynb?utm_campaign=Data_Elixir&utm_source=Data_Elixir_210}{here} for a python package that gives you the decomposition and refers to the Dominguez paper.
+
+
+
+
+\subsection{Generative vs. Discriminative Models}
+
+The previous discussions about probability distributions that explain the relationship between dependent and independent variables sets us up nicely for understanding what generative vs. discriminative models are. \textbf{Generative models} are models that attempt to find or approximate the original distribution $P(X,Y)$. They are called generative because once we've found a generative model we can \emph{generate} synthetic data from the model, inputs AND outputs. We can also use generative models to make predictions by using Bayes rule to find the posterior distribution $P(Y|X)$ and then use decision theory to make the prediction (essentially assign the instance to the class with the highest probability distribution, if we are using a traditional loss function). \textbf{Discriminative models} attempt to model the posterior density $P(Y|X)$ directly and then use decision theory to make predictions using that posterior density. 
+
+Both of these approaches first do whats called the \emph{inference stage} (finding the distribution) and then use the posterior probabilities in the \emph{decision stage}. A third option exists where we directly find a function $f(X)$ that maps inputs to outputs. The function $f(X)$ is known as a \emph{discriminant function}.
+
+There are pros and cons to each approach as Bishop mentions which I summarize here.
+\break
+
+\noindent \underline{\textbf{Generative model pros}}:
+\begin{itemize}
+\item Allows us to find the marginal density $P(X)$ which tells us the likelihood of given inputs and helps us identify inputs that may not be common and therefore less accurate. This is a form of outlier detection.
+\item Allows us to generate synthetic data
+\item TODO: Read Andrew Ngs' and Michael Jordan's paper
+\end{itemize}
+
+\noindent \underline{\textbf{Generative model cons}}:
+\begin{itemize}
+\item Could be considered a waste of effort if only goal is prediction. 
+\item Since we are attempting to find the entire density $P(X,Y)$ we may need more data in order to find accurate posterior distributions.
+\end{itemize}
+
+\noindent \underline{\textbf{Discriminative model pros}}:
+\begin{itemize}
+\item Once we've found this model and our loss function changes, then we only need to change the loss function - we don't need to retrain the entire model compared to a discriminate function.
+\item Reject option - Bishop likes this concept where we can determine areas we aren't as confident the model can do a good job with and instead ask a human to make the classification.
+\item We can deal better with class imbalance - TODO: Bishop has a good synopsis that I might write in later
+\item Combine models - TODO: Gives an example of the naive Bayes model
+\end{itemize}
+
+TODO: I think I've made a connection here between the discriminative model and discriminative function. For least squares the optimal decision is the condition mean and that is what f(x) is below.
+
+The discriminative model $P(Y|X)$ allows for completely summarizing the way $Y$ depends on $X$. When we use another model like the additive error model, we make a further assumption that the errors are independent of $X$ and that they have a constant variance. So the additive error model puts further constraints on the discriminative model. We can still think of the additive error model as some conditional distribution, but a distribution that is simplified.
+
+We can also go the other direction by thinking of the discriminative model $P(Y|X)$ as the equation $y_i = f(x_i) + \epsilon_i$ but not putting constraints of any kind on $\epsilon_i$. The idea is that there is some "true function" out there and then there are some errors off of that true function that gives us our dependent variable.
+
+In either case the next step is to then think of other modeling assumption for $f(x_i)$ such as the linear model.
+
+
+\subsection{Curse of Dimensionality}
+
+The \emph{curse of dimensionality}  \footnote{attributed to Richard Belllman} refers to the problem that models face in many dimensions. As both ESL and Bishop describe, our intuition break down in many dimensions. For example, Bishop gives the example of points in a unit sphere. In general the volume of a hypersphere can be written as:
+
+\begin{equation}
+V_n(R) = \frac{\pi^{\frac{n}{2}}}{\Gamma(\frac{n}{2} + 1)}R^n.
+\end{equation}
+where $R$ is radius, $n$ is the number of dimensions and $\Gamma$ is the \gls{gamma} function. So for example if we are in two dimensions $(n=2)$ we would get:
+
+\begin{equation}
+\frac{\pi}{\Gamma(2)}R^2 = \pi R^2.
+\end{equation}
+Whats interesting is if we consider a hyper sphere in $D$ dimensions and then an inner hyper sphere of radius $\epsilon$ contained within the larger sphere. If we write out the volume between these two spheres, hold radius to 1, and consider this quantity as a proportion to the larger outer sphere we get:
+
+\begin{equation}
+\frac{\frac{\pi^{\frac{D}{2}}}{\Gamma(\frac{D}{2} + 1)} - \frac{\pi^{\frac{D}{2}}}{\Gamma(\frac{D}{2} + 1)} (1-\epsilon)^{D}}{\frac{\pi^{\frac{D}{2}}}{\Gamma(\frac{D}{2} + 1)}}
+\end{equation}
+Simplifying we are left with:
+\begin{equation}
+1 - (1-\epsilon)^D.
+\end{equation}
+
+What is interesting here is that as we increase the dimension $D$, this quantity gets closer and closer to 1. Since the quantity is a proportion over the outer sphere this implies that most of the volume is in between the inner sphere and the outer sphere as the dimension increases. This is even true when the inner sphere is close to the same size as the outer sphere (when 1-$\epsilon$ is really small).
+
+This example simply illustrates some of the weird behavior that occurs in many dimensions but a better example given by Bishop illustrates the issue when applied to modeling. Consider a naive model where for each new data point we assign a predicted label according to a majority rule within a uniform neighborhood (similar to nearest neighbors but splitting the space up into uniform cubes instead of a neighborhood around each data point). In one dimension say we look at the range between 0 and 4 and split the space up into 4 intervals of 1 unit each. If we are given a new point, 1.5 for example, then we assign that data point the majority label of all other points in the interval 1 to 2. 
+
+Say however, that we add a second dimension with the same range. The number of unit squares will now be 16. If we go to three dimensions we now have 64 squares, four dimensions 256, etc. This is an issue because in order to determine what each point should be in a given unit cube, we need to make sure we have data in each cube, implying that we need an exponentially increasing amount of data as we increase our dimensions. More specifically in one dimension we would need at least 4 data points to have a data point in each interval, but in four dimensions we would need at least 256 data points (however, in both scenarios here there is no guarantee that we get a data point in each interval or cube, this just illustrates a general rule).
+
+% TODO: I don't understand this local part very well
+So what to do if we have limited data and many dimensions? There are a couple of ideas to keep in mind that give us hope. The first idea is that in practice data tends to be more concentrated. This implies that the true dimensionality is potentially much lower. The other idea that Bishop mentions is that "real data will exhibit some smoothness properties" locally (see pg. 37). This I think implies that we can use models that rely on these assumptions. This last point is a little fuzzy to me still but I think ESL (on pg 32) sheds a little light by talking about the \emph{complexity} of a model, in particular restraining the complexity of the model. Instead of using a nearest neighbor type approach for example, we can assume the data is linear in these local neighborhoods (which is a constraint on complexity) and use linear regression.
+
+In summary, the curse of dimensionality is an important concept to keep in mind because it invalidates naive models such as nearest neighbors in high dimensions. Many models have been developed to avoid this problem by including various assumptions (pg. 27 of ESL) to get at the true nature of the data. And when considering various models it is good to remember that intuition can fail in high dimensions.
+
+

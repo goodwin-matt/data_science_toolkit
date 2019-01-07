@@ -1,0 +1,55 @@
+
+There are three main components that make up the Generalized Linear Model (GLM):
+
+\begin{enumerate}
+\item Random component - assume the response variable comes from a probability distribution
+\begin{equation}
+Y_i \sim f(\mu_i)
+\end{equation}
+where $\mu_i = E(Y_i)$ and $f$ is a probability distribution.
+\item Link component - connects the random component to the systematic component
+\begin{equation}
+g(\mu_i)=\eta_i
+\end{equation}
+\item Systematic component - this is the linear part
+\begin{equation}
+\eta_i = x_i^\prime \beta
+\end{equation}
+
+\end{enumerate}
+
+
+\subsubsection{Logistic Regression}
+
+Using the component concepts outlined above, for logistic regression we have:
+
+\begin{enumerate}
+\item Random component: $Y_i \sim f(\pi_i)$ where $f$ is the Bernoulli distribution (since $Y$ will be a binary variable when using logistic regression). $E(Y_i) = \pi_i $ which is the probability that $Y_i$ is 1.
+\item Link component: this is the logit function which is defined as:
+\begin{equation}
+\text{logit}(\pi_i) = \log \left(\frac{\pi_i}{1-\pi_i} \right) = \eta_i
+\end{equation}
+\item Systematic component: tying this all together we have:
+\begin{equation}
+\log \left(\frac{\pi_i}{1-\pi_i}\right) = x_i^\prime \beta
+\end{equation}
+\end{enumerate}
+
+Assumptions:
+\begin{enumerate}
+\item Linearity in log-odds
+\item Independence of $Y_i|x_i$ and $Y_j|x_j$
+\item Bernoulli response variable
+\end{enumerate}
+
+For interpretation we can say that with a one unit increase in $X_1$ for example, then the log odds of a success goes up by $\beta_1$. We can also use the multiplicative odds where a one unit increase in $X_1$ leads to a $e^{\beta_1}$ multiplicative change in odds on average.
+
+The probability can be calculated by:
+\begin{equation}
+\begin{split}
+\log \left(\frac{\pi_i}{1-\pi_1} \right) & = \beta_0 + x_i \beta_1 \\
+\frac{\pi_i}{1-\pi_i} &= e^{\beta_0 + x_i \beta_1} \\
+\pi_i &= e^{\beta_0 + x_i \beta_1} - e^{\beta_0 + x_i \beta_1} \pi_i \\
+\pi_i &= \frac{e^{\beta_0 + x_i \beta_1}}{1+e^{\beta_0 + x_i \beta_1}}
+\end{split}
+\end{equation}
