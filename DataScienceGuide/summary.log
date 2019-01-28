@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  11 JAN 2019 09:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  28 JAN 2019 14:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1000,26 +1000,21 @@ File: ./images/bishop_optimal_distributions.png Graphic file (type png)
 Package pdftex.def Info: ./images/bishop_optimal_distributions.png used on inpu
 t line 39.
 (pdftex.def)             Requested size: 296.50572pt x 189.70744pt.
- [4] [5 <./images/bishop_optimal_distributions.png>] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 115--117
-
- []
-
-[7] [8]
+ [4] [5 <./images/bishop_optimal_distributions.png>] [6] [7] [8]
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 177.
- [9]
-Underfull \hbox (badness 10000) in paragraph at lines 181--183
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 178.
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--184
 
  []
 
-LaTeX Font Info:    Try loading font information for TS1+futs on input line 186
+LaTeX Font Info:    Try loading font information for TS1+futs on input line 187
 .
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/ts1futs.fd
 File: ts1futs.fd 2004/03/26 Fontinst v1.926 font definitions for TS1/futs.
-) [10] [11])
-(./metrics.texpdfTeX warning (ext4): destination with the same identifier (name
-{figure.1}) has been already used, duplicate ignored
+) [9] [10]
+[11] [12]) (./metrics.texpdfTeX warning (ext4): destination with the same ident
+ifier (name{figure.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.6 ...on{Plot from Wiki showing confusion matrix}
@@ -1030,7 +1025,7 @@ e ignored
                    \relax 
 l.6 ...on{Plot from Wiki showing confusion matrix}
                                                   
-<./images/confusion_matrix.png, id=229, 1198.4775pt x 375.4025pt>
+<./images/confusion_matrix.png, id=233, 1198.4775pt x 375.4025pt>
 File: ./images/confusion_matrix.png Graphic file (type png)
 
 <use ./images/confusion_matrix.png>
@@ -1041,7 +1036,7 @@ Overfull \hbox (26.41455pt too wide) in paragraph at lines 8--9
  [][] 
  []
 
-[12]) (./glms.tex
+) (./glms.tex
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 22.
@@ -1067,6 +1062,10 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 161.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 161.
 Package rerunfilecheck Info: File `summary.out' has not changed.
 (rerunfilecheck)             Checksum: FA6061D262C258C72E850B94371212B9;1710.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 161.
  ) 
 Here is how much of TeX's memory you used:
@@ -1088,7 +1087,7 @@ ive/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/201
 f-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texmf-dist/
 fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/
 type1/public/cm-super/sfsx1095.pfb>
-Output written on summary.pdf (20 pages, 384982 bytes).
+Output written on summary.pdf (20 pages, 383149 bytes).
 PDF statistics:
  371 PDF objects out of 1000 (max. 8388607)
  332 compressed objects within 4 object streams
