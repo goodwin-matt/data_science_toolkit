@@ -1,0 +1,113 @@
+\subsection{Statistical Tests}
+
+Perhaps the most important concept or theoretical underpinning of all of classical statistics is the Central Limit Theorem. This theorem states that for a random sample $X_1, X_2, ..., X_n$, which is identically and independently distributed with mean $\mu$ and standard deviation $\sigma$, the sample mean is approximately distributed as such:
+
+\begin{equation}
+\bar{X} \sim N(\mu, \frac{\sigma^2}{n})
+\end{equation}
+
+\noindent where $\bar{X}$ is the sample average and as n goes to infinity.
+
+Many of the classical significance tests in statistics are based off of this theorem. For example, say we want to understand if the true mean of a population is different than zero for some scenario. We would set up the test by first defining the null and alternative hypotheses:
+
+\begin{equation}
+\begin{split}
+H_0 &: \mu = 0 \\
+H_A &:  \mu \neq 0
+\end{split}
+\end{equation}
+
+\noindent Since we can't know the true population mean (we can't survey the entire population for example) we are limited to a random sample and the mean of that sample. However, we don't want to make a conclusion based solely off the sample mean because of the variability that is introduced by the random sample. For example, say the sample mean is 1. One conclusion (possibly false) we could make is that the population mean must be close to 1 as well and therefore we would reject the null hypothesis. Its possible however, due to chance we got a sample that happened to have a mean of 1 whereas the population mean is really 0.
+
+To account for this issue we use the central limit theorem to imagine a \emph{sampling distribution} where we take many, many samples of size $n$ from the original population and plot the means to form a distribution. This distribution according to the CLT will be distributed $N(\mu, \frac{\sigma^2}{n})$. Using our given sample, we temporarily make the assumption that the null hypothesis is true ($\mu=0$) and figure out how many standard deviations away our sample mean $\bar{X}$ is from $\mu=0$. This is the z-score.
+
+Before doing this test we decide on a threshold we are comfortable with for determining if the z-score is too ``far'' away from the mean to be due to just chance. One way to express this threshold is through an alpha value, such as $\alpha=0.05$. If we find that the probability under the sampling distribution of the sample mean being as extreme or more extreme than the derived z-statistic is greater than $\alpha=0.05$, we fail to reject the null hypothesis and say ``this sample mean is close enough to 0 so we will call the population mean 0". If the same probability is less than 0.05 we reject the null hypothesis, accept the alternative, and say ``this sample mean was so far away from 0 it must not be due to chance". 
+
+The probabilities above are known as p-values. It is key to remember that the interpretation of a p-value is not the probability of the null hypothesis being true. It is the ``probability, under the null hypothesis, that we get a value as extreme or more extreme than the one observed".
+
+Below are common statistical tests that make use of this entire framework, but with different variations. I attempt to summarize the most important tests and guiding rules to know which ones should be used under different circumstances.
+\newline
+
+\noindent \underline{\textbf{One sample z-test}}:
+
+The equation for the one sample z-test is given by:
+\begin{equation}
+z = \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}
+\end{equation}
+
+Often times $\sigma$, the population standard deviation, is not known so we instead replace it with $s$, the sample standard deviation. As a rough rule, if $n>30$, we say the sample standard deviation approximates the population standard deviation close enough and we feel more confident in treating the sampling distribution as normal. This is a rough rule so it seems when in doubt it is better to use the t-score. 
+
+The conditions for using the z-score are therefore:
+\begin{itemize}
+\item Random sample
+\item Independence condition (the individual observations in the sample are independent)
+\item Normal condition (underlying population is normal or the sample size is large enough meaning $n>30$). If $n<30$ we need to look at the underlying data to see if the distribution is skewed or if there are outliers. If not then it may be safe to assume the sampling distribution will be normal. Note here as well that for proportions (when our original data is binary and we are doing a hypothesis test on the proportions) the test for normality is $np, n(1-p) > 10$.
+\end{itemize}
+
+\noindent \underline{\textbf{One sample t-test}}:
+The equation for the one sample t-test is given by:
+\begin{equation}
+t= \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}
+\end{equation}
+
+This is the same as the z-test but we use this test if we see that the population distribution is not normal and $n<30$ (as a general rule of thumb). Again if we don't know the population standard deviation we replace $\sigma$ with $s$. The other conditions (random sample and independence conditions described above) should be met as well.
+\newline
+
+\noindent \underline{\textbf{Two sample z-test}}:
+Two sample tests are used to compare the means of two random and independent samples. The results are similar but instead of imagining a sampling distribution of $\bar{X}$, we instead imagine a sampling distribution of $\bar{X}_1 - \bar{X}_2$. This sampling distribution is found by first imagining the separate sampling distributions for $\bar{X}_1$ (mean $\mu_1$ and standard deviation $\frac{\sigma_1}{\sqrt{n_1}}$) and $\bar{X}_2$ (mean $\mu_2$ and standard deviation $\frac{\sigma_2}{\sqrt{n_2}}$). The mean therefore of $\bar{X}_1 - \bar{X}_2$ will be $\mu_1 - \mu_2$ and the standard deviation will be
+
+\begin{equation}
+\begin{split}
+\sqrt{\text{Var}(\bar{X}_1 - \bar{X}_2)} & = \sqrt{\text{Var}(\bar{X}_1 + (- \bar{X}_2))} \\
+&=\sqrt{\text{Var}(\bar{X}_1) + (-1)^2 \text{Var}(\bar{X}_2) + (-1)*2\text{Cov}(\bar{X}_1, \bar{X}_2)} \\
+&=\sqrt{\text{Var}(\bar{X}_1) + \text{Var}(\bar{X}_2)}  \hspace{1em}   \text{(since $\bar{X}_1$ and $\bar{X}_2$ are independent)}\\
+&=\sqrt{ \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}
+\end{split}
+\end{equation}
+
+Our null hypothesis will then typically be:
+
+\begin{equation}
+\begin{split}
+H_0 &: \mu_1 - \mu_2 = 0 \\
+H_A &:   \mu_1 - \mu_2 \neq 0
+\end{split}
+\end{equation}
+
+\noindent If both samples are large enough ($n_1, n_2 > 30$) then we assume that the sampling distribution of $\bar{X}_1$ - $\bar{X}_2$ is normal and we can use the z-score:
+
+\begin{equation}
+z = \frac{(\bar{X}_1 -   \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}.
+\end{equation}
+
+\noindent \underline{\textbf{Two sample t-test (variances are different)}}:
+
+If the one of the sample sizes is below 30 then it is best to use the t-test. The score below is used when the variances are different. This is known as Welch's t-test:
+
+\begin{equation}
+t = \frac{(\bar{X}_1 -   \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}.
+\end{equation}
+
+\noindent \underline{\textbf{Two sample t-test (variances are same)}}:
+
+\begin{equation}
+t = \frac{(\bar{X}_1 -   \bar{X}_2) - (\mu_1 - \mu_2)}{s_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}.
+\end{equation}
+
+
+\subsection{Analysis of Variance (ANOVA)}
+
+The previous test statistics are for when we want to compare a sample mean with some value or when we want to compare two sample means with each other. Analysis of Variance comes into play when we want to compare multiple samples (3 or more). 
+
+
+
+
+
+
+
+
+
+
+
+
+
