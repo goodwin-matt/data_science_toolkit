@@ -1,6 +1,6 @@
 \subsection{Statistical Tests}
 
-Perhaps the most important concept or theoretical underpinning of all of classical statistics is the Central Limit Theorem. This theorem states that for a random sample $X_1, X_2, ..., X_n$, which is identically and independently distributed with mean $\mu$ and standard deviation $\sigma$, the sample mean is approximately distributed as such:
+Perhaps the most important concept or theoretical underpinning of all classical statistics is the Central Limit Theorem. This theorem states that for a random sample $X_1, X_2, ..., X_n$, which is identically and independently distributed with mean $\mu$ and standard deviation $\sigma$, the sample mean is approximately distributed as such:
 
 \begin{equation}
 \bar{X} \sim N(\mu, \frac{\sigma^2}{n})
@@ -8,25 +8,43 @@ Perhaps the most important concept or theoretical underpinning of all of classic
 
 \noindent where $\bar{X}$ is the sample average and as n goes to infinity.
 
-Many of the classical significance tests in statistics are based off of this theorem. For example, say we want to understand if the true mean of a population is different than zero for some scenario. We would set up the test by first defining the null and alternative hypotheses:
+Many of the classical significance tests are based off of this theorem. For example, say we want to understand if the true mean of a population is different than zero for some scenario. We would set up the test by first defining the null and alternative hypotheses:
 
 \begin{equation}
 \begin{split}
 H_0 &: \mu = 0 \\
-H_A &:  \mu \neq 0
+H_A &:  \mu \neq 0.
 \end{split}
 \end{equation}
 
-\noindent Since we can't know the true population mean (we can't survey the entire population for example) we are limited to a random sample and the mean of that sample. However, we don't want to make a conclusion based solely off the sample mean because of the variability that is introduced by the random sample. For example, say the sample mean is 1. One conclusion (possibly false) we could make is that the population mean must be close to 1 as well and therefore we would reject the null hypothesis. Its possible however, due to chance we got a sample that happened to have a mean of 1 whereas the population mean is really 0.
+\noindent Since we can't know the true population mean (we can't survey the entire population for example) we are limited to a random sample and the mean of that sample. However, we don't want to make a conclusion based solely off the sample mean because of the variability that is introduced by the random sample. For example, say the sample mean is 1. One conclusion (possibly false) we could make is that the population mean must be close to 1 as well and therefore we would reject the null hypothesis. It's possible however, that our sample happens to have a mean of 1 by chance whereas the population mean is really 0.
 
-To account for this issue we use the central limit theorem to imagine a \emph{sampling distribution} where we take many, many samples of size $n$ from the original population and plot the means to form a distribution. This distribution according to the CLT will be distributed $N(\mu, \frac{\sigma^2}{n})$. Using our given sample, we temporarily make the assumption that the null hypothesis is true ($\mu=0$) and figure out how many standard deviations away our sample mean $\bar{X}$ is from $\mu=0$. This is the z-score.
+To account for this issue we use the central limit theorem to imagine a \emph{sampling distribution} where we theoretically take many, many samples of size $n$ from the original population and plot the means to form a distribution. This distribution, according to the CLT, will be distributed $N(\mu, \frac{\sigma^2}{n})$. Using our given sample or data, we temporarily make the assumption that the null hypothesis is true ($\mu=0$) and figure out how many standard deviations away our sample mean $\bar{X}$ is from $\mu=0$. This is the z-score.
 
-Before doing this test we decide on a threshold we are comfortable with for determining if the z-score is too ``far'' away from the mean to be due to just chance. One way to express this threshold is through an alpha value, such as $\alpha=0.05$. If we find that the probability under the sampling distribution of the sample mean being as extreme or more extreme than the derived z-statistic is greater than $\alpha=0.05$, we fail to reject the null hypothesis and say ``this sample mean is close enough to 0 so we will call the population mean 0". If the same probability is less than 0.05 we reject the null hypothesis, accept the alternative, and say ``this sample mean was so far away from 0 it must not be due to chance". 
+Before doing this test we decide on a threshold we are comfortable with for determining if the z-score is too extreme to be due to just chance. One way to express this threshold is through critical values like 1.96 and -1.96 if doing a two-tailed test (more on those numbers in a second). If we find the z-score is greater than 1.96 or less than -1.96 in this scenario, then we can conclude that the sample mean was far enough away from 0 that it must not be due to chance alone. If we find the opposite however, then we conclude that we don't have enough evidence to reject the null hypothesis and assume our population mean is 0. 
 
-The probabilities above are known as p-values. It is key to remember that the interpretation of a p-value is not the probability of the null hypothesis being true. It is the ``probability, under the null hypothesis, that we get a value as extreme or more extreme than the one observed".
+We know that z-scores in particular are distributed normally with mean zero and variance one. Using this distribution we can calculate what is known as the p-value, or the probability we get a z-score as extreme or more extreme than the one found, assuming the null hypothesis is true. We can then compare that p-value to the probability of a z-score in general being greater than or less than our critical values, such as 1.96 and -1.96. For these values the probability is 5\% and can be written as $\alpha=0.05$, which is a common threshold chosen in academia. 
 
-Below are common statistical tests that make use of this entire framework, but with different variations. I attempt to summarize the most important tests and guiding rules to know which ones should be used under different circumstances.
-\newline
+The interpretation of the p-value given above was defined in terms of the z-score, but in general it refers to the probability of getting any test statistic as extreme or more extreme than the one found, under the null hypothesis. P-values are the source of great confusion and it is important to remember the correct interpretation given above.
+
+% TODO good to publish up to here
+Table \ref{table:test_stat} below summarizes some of the basis statistical tests, followed by a more in depth discussion on each test.\newline
+
+\begin{table}[] \label{table:test_stat}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+One sample z-statistic &  &  &  &  \\ \hline
+One sample t-statistic &  &  &  &  \\ \hline
+Two sample z-statistic                      &  &  &  &  \\ \hline
+Two sample t-statistic                      &  &  &  &  \\ \hline
+ANOVA                      &  &  &  &  \\ \hline
+Chi-square                      &  &  &  &  \\ \hline
+Kolmogorov-Smirnov                     &  &  &  &  \\ \hline
+\end{tabular}
+\caption{Summary of basic statistical tests}\label{table:somename}
+\end{table}
+
+
 
 \noindent \underline{\textbf{One sample z-test}}:
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  13 MAR 2019 14:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  4 APR 2019 11:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -533,6 +533,14 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 59.
 
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen117
+\extrarowheight=\dimen118
+\NC@list=\toks26
+\extratabsurround=\skip71
+\backup@length=\skip72
+)
 (/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -551,23 +559,23 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
 \Gread@gobject=\count112
 ))
-\Gin@req@height=\dimen117
-\Gin@req@width=\dimen118
+\Gin@req@height=\dimen119
+\Gin@req@width=\dimen120
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 \Gm@cnth=\count113
 \Gm@cntv=\count114
 \c@Gm@tempcnt=\count115
-\Gm@bindingoffset=\dimen119
-\Gm@wd@mp=\dimen120
-\Gm@odd@mp=\dimen121
-\Gm@even@mp=\dimen122
-\Gm@layoutwidth=\dimen123
-\Gm@layoutheight=\dimen124
-\Gm@layouthoffset=\dimen125
-\Gm@layoutvoffset=\dimen126
-\Gm@dimlist=\toks26
+\Gm@bindingoffset=\dimen121
+\Gm@wd@mp=\dimen122
+\Gm@odd@mp=\dimen123
+\Gm@even@mp=\dimen124
+\Gm@layoutwidth=\dimen125
+\Gm@layoutheight=\dimen126
+\Gm@layouthoffset=\dimen127
+\Gm@layoutvoffset=\dimen128
+\Gm@dimlist=\toks27
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/bm.sty
 Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
@@ -588,8 +596,8 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
 (/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/local/texlive/2017/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks27
-\XKV@tempa@toks=\toks28
+\XKV@toks=\toks28
+\XKV@tempa@toks=\toks29
 )
 \XKV@depth=\count116
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
@@ -601,8 +609,8 @@ Package: mfirstuc 2016/07/31 v2.04 (NLCT)
 Package: etoolbox 2017/01/02 v2.4 e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count117
 )
-\@glsmfirst=\toks29
-\@glsmrest=\toks30
+\@glsmfirst=\toks30
+\@glsmrest=\toks31
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/textcase/textcase.sty
 Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
@@ -668,9 +676,9 @@ Package: fp-upn 1996/10/21
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fp/fp-eval.sty
 Package: fp-eval 1995/04/03
 )))
-\@dtl@toks=\toks31
+\@dtl@toks=\toks32
 \@dtl@tmpcount=\count130
-\dtl@tmplength=\skip71
+\dtl@tmplength=\skip73
 \dtl@sortresult=\count131
 \@dtl@numgrpsepcount=\count132
 \@dtl@datatype=\count133
@@ -696,12 +704,12 @@ lish.ldf
 File: glossaries-english.ldf 2014/11/23 v1.0
 )
 \gls@level=\count137
-\@gls@tmpb=\toks32
-\gls@tmplen=\skip72
-\glskeylisttok=\toks33
-\glslabeltok=\toks34
-\glsshorttok=\toks35
-\glslongtok=\toks36
+\@gls@tmpb=\toks33
+\gls@tmplen=\skip74
+\glskeylisttok=\toks34
+\glslabeltok=\toks35
+\glsshorttok=\toks36
+\glslongtok=\toks37
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/glossaries/styles/glossary-hypern
 av.sty
@@ -710,19 +718,19 @@ Package: glossary-hypernav 2017/01/19 v4.29 (NLCT)
 (/usr/local/texlive/2017/texmf-dist/tex/latex/glossaries/styles/glossary-list.s
 ty
 Package: glossary-list 2017/01/19 v4.29 (NLCT)
-\glslistdottedwidth=\skip73
+\glslistdottedwidth=\skip75
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/glossaries/styles/glossary-long.s
 ty
 Package: glossary-long 2017/01/19 v4.29 (NLCT)
  (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip74
-\LTright=\skip75
-\LTpre=\skip76
-\LTpost=\skip77
+\LTleft=\skip76
+\LTright=\skip77
+\LTpre=\skip78
+\LTpost=\skip79
 \LTchunksize=\count138
-\LTcapwidth=\dimen127
+\LTcapwidth=\dimen129
 \LT@head=\box30
 \LT@firsthead=\box31
 \LT@foot=\box32
@@ -731,11 +739,11 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \LT@rows=\count140
 \c@LT@tables=\count141
 \c@LT@chunks=\count142
-\LT@p@ftn=\toks37
+\LT@p@ftn=\toks38
 )
 Class scrartcl Info: longtable captions redefined on input line 43.
-\glsdescwidth=\skip78
-\glspagelistwidth=\skip79
+\glsdescwidth=\skip80
+\glspagelistwidth=\skip81
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/glossaries/styles/glossary-super.
 sty
@@ -743,82 +751,82 @@ Package: glossary-super 2017/01/19 v4.29 (NLCT)
  (/usr/local/texlive/2017/texmf-dist/tex/latex/supertabular/supertabular.sty
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
 \c@tracingst=\count143
-\ST@wd=\dimen128
-\ST@rightskip=\skip80
-\ST@leftskip=\skip81
-\ST@parfillskip=\skip82
-\ST@pageleft=\dimen129
-\ST@headht=\dimen130
-\ST@tailht=\dimen131
-\ST@pagesofar=\dimen132
-\ST@pboxht=\dimen133
-\ST@lineht=\dimen134
-\ST@stretchht=\dimen135
-\ST@prevht=\dimen136
-\ST@toadd=\dimen137
-\ST@dimen=\dimen138
+\ST@wd=\dimen130
+\ST@rightskip=\skip82
+\ST@leftskip=\skip83
+\ST@parfillskip=\skip84
+\ST@pageleft=\dimen131
+\ST@headht=\dimen132
+\ST@tailht=\dimen133
+\ST@pagesofar=\dimen134
+\ST@pboxht=\dimen135
+\ST@lineht=\dimen136
+\ST@stretchht=\dimen137
+\ST@prevht=\dimen138
+\ST@toadd=\dimen139
+\ST@dimen=\dimen140
 \ST@pbox=\box34
 ))
 (/usr/local/texlive/2017/texmf-dist/tex/latex/glossaries/styles/glossary-tree.s
 ty
 Package: glossary-tree 2017/01/19 v4.29 (NLCT)
-\glstreeindent=\skip83
+\glstreeindent=\skip85
 ))
 \glswrite=\write3
 \glo@main@file=\write4
 \openout4 = `summary.glo'.
 
-Package glossaries Info: Writing glossary file summary.glo on input line 77.
+Package glossaries Info: Writing glossary file summary.glo on input line 80.
  (./glossary.tex) (./summary.aux)
 \openout1 = `summary.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 104.
-LaTeX Font Info:    Try loading font information for FML+futm on input line 104
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 107.
+LaTeX Font Info:    Try loading font information for FML+futm on input line 107
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/fmlfutm.fd
 File: fmlfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futm.
 )
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for FMS/futm/m/n on input line 104.
-LaTeX Font Info:    Try loading font information for FMS+futm on input line 104
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for FMS/futm/m/n on input line 107.
+LaTeX Font Info:    Try loading font information for FMS+futm on input line 107
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/fmsfutm.fd
 File: fmsfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FMS/futm.
 )
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 104.
-LaTeX Font Info:    Try loading font information for FMX+futm on input line 104
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 107.
+LaTeX Font Info:    Try loading font information for FMX+futm on input line 107
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/fmxfutm.fd
 File: fmxfutm.fd futm-extension
 )
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 104.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 104.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 107.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 107.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Try loading font information for T1+futs on input line 104.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Try loading font information for T1+futs on input line 107.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/t1futs.fd
@@ -834,7 +842,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 147.
 )
-Package hyperref Info: Link coloring ON on input line 104.
+Package hyperref Info: Link coloring ON on input line 107.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -844,9 +852,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count144
 )
-LaTeX Info: Redefining \ref on input line 104.
-LaTeX Info: Redefining \pageref on input line 104.
-LaTeX Info: Redefining \nameref on input line 104.
+LaTeX Info: Redefining \ref on input line 107.
+LaTeX Info: Redefining \pageref on input line 107.
+LaTeX Info: Redefining \nameref on input line 107.
 
 (./summary.out) (./summary.out)
 \@outlinefile=\write5
@@ -856,16 +864,16 @@ LaTeX Info: Redefining \nameref on input line 104.
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count145
-\scratchdimen=\dimen139
+\scratchdimen=\dimen141
 \scratchbox=\box36
 \nofMPsegments=\count146
 \nofMParguments=\count147
-\everyMPshowfont=\toks38
+\everyMPshowfont=\toks39
 \MPscratchCnt=\count148
-\MPscratchDim=\dimen140
+\MPscratchDim=\dimen142
 \MPnumerator=\count149
 \makeMPintoPDFobject=\count150
-\everyMPtoPDFconversion=\toks39
+\everyMPtoPDFconversion=\toks40
 ) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -918,36 +926,36 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 (./summary.glsdefs)
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 108.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 111.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Try loading font information for FML+futmi on input line 10
-8.
+LaTeX Font Info:    Try loading font information for FML+futmi on input line 11
+1.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/fmlfutmi.fd
 File: fmlfutmi.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futmi.
 )
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 108.
+(Font)              scaled to size 13.24796pt on input line 111.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 108.
+(Font)              scaled to size 9.19998pt on input line 111.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 108.
+(Font)              scaled to size 7.35999pt on input line 111.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 108.
+(Font)              scaled to size 13.24796pt on input line 111.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 108.
+(Font)              scaled to size 9.19998pt on input line 111.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 108.
-LaTeX Font Info:    Try loading font information for U+msa on input line 108.
+(Font)              scaled to size 7.35999pt on input line 111.
+LaTeX Font Info:    Try loading font information for U+msa on input line 111.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 108.
+LaTeX Font Info:    Try loading font information for U+msb on input line 111.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -958,7 +966,7 @@ Class scrartcl Warning: incompatible usage of \@ssect detected.
 (scrartcl)              from within a non compatible caller, that does not
 (scrartcl)              \scr@s@ct@@nn@m@ locally.
 (scrartcl)              This could result in several error messages on input li
-ne 110.
+ne 113.
 
 (./summary.toc
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
@@ -992,7 +1000,7 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 6.99199pt on input line 3.
  [3]
-<./images/bishop_optimal_distributions.png, id=183, 423.5825pt x 271.0125pt>
+<./images/bishop_optimal_distributions.png, id=198, 423.5825pt x 271.0125pt>
 File: ./images/bishop_optimal_distributions.png Graphic file (type png)
 
 <use ./images/bishop_optimal_distributions.png>
@@ -1024,7 +1032,7 @@ e ignored
                    \relax 
 l.6 ...on{Plot from Wiki showing confusion matrix}
                                                   
-<./images/confusion_matrix.png, id=258, 1198.4775pt x 375.4025pt>
+<./images/confusion_matrix.png, id=273, 1198.4775pt x 375.4025pt>
 File: ./images/confusion_matrix.png Graphic file (type png)
 
 <use ./images/confusion_matrix.png>
@@ -1040,42 +1048,52 @@ Overfull \hbox (26.41455pt too wide) in paragraph at lines 8--9
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 22.
 
-[13 <./images/confusion_matrix.png>]) (./ensembles.tex [14] [15] [16] [17])
-(./neural_nets.texpdfTeX warning (ext4): destination with the same identifier (
-name{figure.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.10 \caption{XOR problem}
-                          pdfTeX warning (ext4): destination with the same iden
-tifier (name{figure.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.10 \caption{XOR problem}
-                          
-<./images/xor.png, id=311, 258.9675pt x 261.97874pt>
-File: ./images/xor.png Graphic file (type png)
- <use ./images/xor.png>
-Package pdftex.def Info: ./images/xor.png used on input line 12.
-(pdftex.def)             Requested size: 181.27599pt x 183.38387pt.
+[13 <./images/confusion_matrix.png>]) (./bayes_hierarchical_models.tex)
+(./ensembles.tex [14] [15] [16] [17]) (./neural_nets.tex
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 3.
 
-<./images/neural_net_image.png, id=312, 1112.155pt x 484.81125pt>
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) h
+as been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.11 ...ion{Example of a two layer neural network}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{figure.1}) has been already used, duplicat
+e ignored
+<to be read again> 
+                   \relax 
+l.11 ...ion{Example of a two layer neural network}
+                                                  
+<./images/neural_net_image.png, id=327, 1104.125pt x 481.8pt>
 File: ./images/neural_net_image.png Graphic file (type png)
 
 <use ./images/neural_net_image.png>
-Package pdftex.def Info: ./images/neural_net_image.png used on input line 20.
-(pdftex.def)             Requested size: 333.64908pt x 145.44449pt.
-) (./classical_statistics.tex [18] [19 <./images/xor.png> <./images/neural_net_
-image.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 28--30
+Package pdftex.def Info: ./images/neural_net_image.png used on input line 13.
+(pdftex.def)             Requested size: 331.24005pt x 144.5411pt.
+ [18] [19 <./images/neural_net_image.png>]
+[20] <./images/xor.png, id=359, 258.9675pt x 261.97874pt>
+File: ./images/xor.png Graphic file (type png)
+
+<use ./images/xor.png>
+Package pdftex.def Info: ./images/xor.png used on input line 183.
+(pdftex.def)             Requested size: 181.27599pt x 183.38387pt.
+) (./classical_statistics.tex [21] [22 <./images/xor.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
 
-[20]
-Underfull \hbox (badness 10000) in paragraph at lines 53--55
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 33.
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 71--73
 
  []
 
-[21]) [22] [23] (./summary.gls
+[24]) [25] [26] (./summary.gls
 
 Class scrartcl Warning: incompatible usage of \@ssect detected.
 (scrartcl)              You've used the KOMA-Script implementation of \@ssect
@@ -1085,24 +1103,24 @@ Class scrartcl Warning: incompatible usage of \@ssect detected.
 ne 1.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 169.
- [24
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 175.
+ [27
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 169.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 175.
  (./summary.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 169.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 169.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 175.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 175.
 Package rerunfilecheck Info: File `summary.out' has not changed.
-(rerunfilecheck)             Checksum: 1263CDB538E8C06C9DE622DC3C69E82F;2029.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 169.
+(rerunfilecheck)             Checksum: C091FC31085AC52385F884DDA67FCAE0;2217.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 175.
  ) 
 Here is how much of TeX's memory you used:
- 16838 strings out of 492995
- 281524 string characters out of 6132704
- 600602 words of memory out of 5000000
- 19902 multiletter control sequences out of 15000+600000
- 191212 words of font info for 188 fonts, out of 8000000 for 9000
+ 16938 strings out of 492995
+ 283262 string characters out of 6132704
+ 601441 words of memory out of 5000000
+ 19972 multiletter control sequences out of 15000+600000
+ 191526 words of font info for 189 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,20n,51p,8818b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
@@ -1115,11 +1133,12 @@ ive/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/201
 7/texmf-dist/fonts/type1/adobe/utopia/putbi8a.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texmf-dist/
 fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/cm-super/sfsx1095.pfb>
-Output written on summary.pdf (24 pages, 529992 bytes).
+type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
+pe1/public/cm-super/sftt1095.pfb>
+Output written on summary.pdf (27 pages, 572675 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 384 compressed objects within 4 object streams
- 124 named destinations out of 1000 (max. 500000)
- 269 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 487 PDF objects out of 1000 (max. 8388607)
+ 435 compressed objects within 5 object streams
+ 145 named destinations out of 1000 (max. 500000)
+ 293 words of extra memory for PDF output out of 10000 (max. 10000000)
 

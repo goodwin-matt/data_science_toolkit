@@ -6,26 +6,29 @@
 \BOOKMARK [2][-]{subsection.1.5}{Generative vs. Discriminative Models}{section.1}% 6
 \BOOKMARK [2][-]{subsection.1.6}{Curse of Dimensionality}{section.1}% 7
 \BOOKMARK [2][-]{subsection.1.7}{No Free Lunch Theorem}{section.1}% 8
-\BOOKMARK [1][-]{section.2}{Metrics and Loss Functions}{}% 9
+\BOOKMARK [1][-]{section.2}{Assessment of Models}{}% 9
 \BOOKMARK [2][-]{subsection.2.1}{Classification Metrics}{section.2}% 10
 \BOOKMARK [3][-]{subsubsection.2.1.1}{Confusion Matrix}{subsection.2.1}% 11
 \BOOKMARK [1][-]{section.3}{Generalized Linear Models}{}% 12
 \BOOKMARK [2][-]{subsubsection.3.0.1}{Logistic Regression}{section.3}% 13
-\BOOKMARK [1][-]{section.4}{Ensemble}{}% 14
-\BOOKMARK [2][-]{subsection.4.1}{Bagging}{section.4}% 15
-\BOOKMARK [2][-]{subsection.4.2}{Random Forrest}{section.4}% 16
-\BOOKMARK [2][-]{subsection.4.3}{Bumping}{section.4}% 17
-\BOOKMARK [2][-]{subsection.4.4}{Boosting}{section.4}% 18
-\BOOKMARK [3][-]{subsubsection.4.4.1}{Gradient Boosting}{subsection.4.4}% 19
-\BOOKMARK [3][-]{subsubsection.4.4.2}{Adaboost}{subsection.4.4}% 20
-\BOOKMARK [1][-]{section.5}{Neural Networks}{}% 21
-\BOOKMARK [2][-]{subsection.5.1}{Neural Networks}{section.5}% 22
-\BOOKMARK [1][-]{section.6}{Unsupervised}{}% 23
-\BOOKMARK [2][-]{subsection.6.1}{Principal Components Analysis}{section.6}% 24
-\BOOKMARK [1][-]{section.7}{Classical Statistics}{}% 25
-\BOOKMARK [2][-]{subsection.7.1}{Statistical Tests}{section.7}% 26
-\BOOKMARK [2][-]{subsection.7.2}{Analysis of Variance \(ANOVA\)}{section.7}% 27
-\BOOKMARK [1][-]{section.8}{Terms and Notation}{}% 28
-\BOOKMARK [2][-]{subsection.8.1}{Variable notiation}{section.8}% 29
-\BOOKMARK [1][-]{section.9}{Basic Statistical Concepts}{}% 30
-\BOOKMARK [2][-]{subsection.9.1}{Inference}{section.9}% 31
+\BOOKMARK [1][-]{section.4}{Bayesian Statistics}{}% 14
+\BOOKMARK [2][-]{subsection.4.1}{Bayesian Hierarchical Models}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{Ensemble}{}% 16
+\BOOKMARK [2][-]{subsection.5.1}{Bagging}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.2}{Random Forrest}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.3}{Bumping}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.4}{Boosting}{section.5}% 20
+\BOOKMARK [3][-]{subsubsection.5.4.1}{Gradient Boosting}{subsection.5.4}% 21
+\BOOKMARK [3][-]{subsubsection.5.4.2}{Adaboost}{subsection.5.4}% 22
+\BOOKMARK [1][-]{section.6}{Neural Networks}{}% 23
+\BOOKMARK [2][-]{subsection.6.1}{Neural Networks}{section.6}% 24
+\BOOKMARK [2][-]{subsection.6.2}{Backprop}{section.6}% 25
+\BOOKMARK [1][-]{section.7}{Unsupervised}{}% 26
+\BOOKMARK [2][-]{subsection.7.1}{Principal Components Analysis}{section.7}% 27
+\BOOKMARK [1][-]{section.8}{Classical Statistics}{}% 28
+\BOOKMARK [2][-]{subsection.8.1}{Statistical Tests}{section.8}% 29
+\BOOKMARK [2][-]{subsection.8.2}{Analysis of Variance \(ANOVA\)}{section.8}% 30
+\BOOKMARK [1][-]{section.9}{Terms and Notation}{}% 31
+\BOOKMARK [2][-]{subsection.9.1}{Variable notiation}{section.9}% 32
+\BOOKMARK [1][-]{section.10}{Basic Statistical Concepts}{}% 33
+\BOOKMARK [2][-]{subsection.10.1}{Inference}{section.10}% 34

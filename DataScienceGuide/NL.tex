@@ -1,0 +1,9 @@
+\subsection{NLP}
+
+Skip-gram
+
+The main idea here is to train a neural network with one hidden layer and with the softmax output. A training example will consist of two one hot vectors - the input word and a word next to it (the word in context). We choose a hidden layer with 300 nodes for example. The weights going from the hidden layer to the softmax output will be the representations of the words we care about.
+
+Think of it like this - we take in a one hot vector, pass it through our weight matrix, and input it into the nodes (without any activation functions). We take the output of these nodes (say 300 nodes) and pass it through another weight matrix that is 10,000 by 300 if there are 10,000 words in our example. Each of those rows will be the representation for each of the 10,000 words. The softmax output (probabilities) will be compared with the one-hot vector. The output node (one of the 10,000) associated with the word in context will need to be increased so as to get closer to matching the one-hot vector, which in turn implies that the word vector associated with that output node will need to change as well. So through the training process we are able to get out representations that have meaning. 
+
+The paper referred to does a couple of things that make the training easier such as removing common words like ``the", putting common phrases together as one word, and doing a process called negative sampling where we only have say 6 output nodes where 5 of them are negative examples and one of them is the true example. This greatly reduces the scale of the problem.
