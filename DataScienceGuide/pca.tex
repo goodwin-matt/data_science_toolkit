@@ -1,0 +1,21 @@
+\subsection{Principal Components Analysis}
+
+Principal Components Analysis (PCA) is one of the most common ways of reducing dimension of a dataset. The main algorithm is as follows:
+
+\begin{enumerate}
+\item Standardize dataset that we want to perform PCA on. This entails subtracting the mean and dividing by the standard deviation.
+
+\item Get covariance matrix of dataset.
+
+\item Do eigen value decomposition on covariance matrix.
+
+\end{enumerate}
+
+
+If we have our data matrix $X$ which is $n$x$p$ ($n$ number of instances, $p$ number of features), then our correlation matrix is given by:
+
+\begin{equation}
+\frac{1}{n}X_s^TX_s
+\end{equation}
+
+\noindent where $X_s$ is the standardized matrix (subtract the mean and divide by standard deviation for each feature). 

@@ -1,6 +1,6 @@
 \subsection{Statistical Tests}
 
-Perhaps the most important concept or theoretical underpinning of all classical statistics is the Central Limit Theorem. This theorem states that for a random sample $X_1, X_2, ..., X_n$, which is identically and independently distributed with mean $\mu$ and standard deviation $\sigma$, the sample mean is approximately distributed as such:
+Perhaps the most important concept or theoretical underpinning of all classical statistics is the Central Limit Theorem. This theorem states that for a random sample $X_1, X_2, ..., X_n$, which is identically and independently distributed with mean $\mu$ and standard deviation $\sigma$, the sample mean is approximately distributed (converges in distribution) as such:
 
 \begin{equation}
 \bar{X} \sim N(\mu, \frac{\sigma^2}{n})
@@ -17,7 +17,7 @@ H_A &:  \mu \neq 0.
 \end{split}
 \end{equation}
 
-\noindent Since we can't know the true population mean (we can't survey the entire population for example) we are limited to a random sample and the mean of that sample. However, we don't want to make a conclusion based solely off the sample mean because of the variability that is introduced by the random sample. For example, say the sample mean is 1. One conclusion (possibly false) we could make is that the population mean must be close to 1 as well and therefore we would reject the null hypothesis. It's possible however, that our sample happens to have a mean of 1 by chance whereas the population mean is really 0.
+\noindent Since we can't know the true population mean (we can't survey the entire population for example) we are limited to a random sample and the mean of that sample. However, we don't want to make a conclusion based solely off the sample mean alone because of the variability that is introduced by the random sample. For example, say the sample mean is 1. One conclusion (possibly false) we could make is that the population mean must be close to 1 as well and therefore we would reject the null hypothesis. It's possible however, that our sample happens to have a mean of 1 by chance whereas the population mean is really 0.
 
 To account for this issue we use the central limit theorem to imagine a \emph{sampling distribution} where we theoretically take many, many samples of size $n$ from the original population and plot the means to form a distribution. This distribution, according to the CLT, will be distributed $N(\mu, \frac{\sigma^2}{n})$. Using our given sample or data, we temporarily make the assumption that the null hypothesis is true ($\mu=0$) and figure out how many standard deviations away our sample mean $\bar{X}$ is from $\mu=0$. This is the z-score.
 
@@ -30,13 +30,15 @@ The interpretation of the p-value given above was defined in terms of the z-scor
 % TODO good to publish up to here
 Table \ref{table:test_stat} below summarizes some of the basis statistical tests, followed by a more in depth discussion on each test.\newline
 
-\begin{table}[] \label{table:test_stat}
+\begin{table}[b] \label{table:test_stat}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
-One sample z-statistic &  &  &  &  \\ \hline
-One sample t-statistic &  &  &  &  \\ \hline
-Two sample z-statistic                      &  &  &  &  \\ \hline
-Two sample t-statistic                      &  &  &  &  \\ \hline
+Statistical Test & When To Use & Statistic & &  \\ \hline
+One sample z-test & n>30 or when we feel our sampling distribution is normal & $\frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}$  &  &  \\ \hline
+One sample t-test & n<30 &  &  &  \\ \hline
+Two sample z-test                      &  &  &  &  \\ \hline
+Two sample t-test                      &  &  &  &  \\ \hline
+Paired t-test                      &  &  &  &  \\ \hline
 ANOVA                      &  &  &  &  \\ \hline
 Chi-square                      &  &  &  &  \\ \hline
 Kolmogorov-Smirnov                     &  &  &  &  \\ \hline
@@ -119,9 +121,51 @@ The previous test statistics are for when we want to compare a sample mean with 
 
 
 
+\subsection{Power Analysis}
 
+Power is simply the probability that we get a test statistic more extreme than our critical value, assuming our alternative hypothesis is true - or maybe better said the probability we reject the null hypothesis given our alternative is true. 
 
+To better see what this looks like consider a simple one-sample t-test where our null hypothesis and alternative hypothesis are defined by:
 
+\begin{equation}
+\begin{split}
+H_0 &: \mu = 0 \\
+H_A &:  \mu > 0.
+\end{split}
+\end{equation}
+
+\noindent Power is then defined as:
+
+\begin{equation}
+P(t > c | \mu = \theta) = \text{power}.
+\end{equation}
+
+Involved in this equation are four parameters we are concerned with, namely the power, the effect size (represented as $\theta$ in this case since our null hypothesis is that $\mu=0$), the critical value $c$ (determined by our selection of $\alpha$ in our test), and the sample size (part of the test statistic $t$). 
+
+So for example, say we get a sample mean of $\bar{X}$ with a standard deviation $s$ and sample size 10. Our t-statistic will be:
+
+\begin{equation}
+t = \frac{\bar{X} - 0}{\frac{s}{\sqrt{10}}}
+\end{equation}
+\noindent Since we don't know the true standard deviation, and because our sample size is low, then we know this follows a t distribution with degrees of freedom 9. Therefore, if we choose $\alpha=0.05$, the critical value will be around 1.833 from a standard t-table. The probability 
+
+\begin{equation}
+P \left( \frac{\bar{X} - 0}{\frac{s}{\sqrt{10}}}> 1.833 \right) 
+\end{equation}
+\noindent would give us our p-value, since this is assuming our null is true ($\mu=0$). However, for power we assume that the alternative is true for some effect size. For example if 1 is the effect size then we have:
+
+\begin{equation}
+\begin{split}
+P \left( \frac{\bar{X} - 0}{\frac{s}{\sqrt{10}}} > 1.833 | \mu = 1 \right)  & = P \left(\frac{\bar{X} - 1+1}{\frac{s}{\sqrt{10}}} > 1.833 | \mu = 1 \right) \\
+&= P \left( \frac{\bar{X} - 1}{\frac{s}{\sqrt{10}}} > 1.833 - \frac{1}{\frac{s}{\sqrt{10}}}  | \mu = 1 \right) \\
+&= 1 - P \left( \frac{\bar{X} - 1}{\frac{s}{\sqrt{10}}}< 1.833 - \frac{1}{\frac{s}{\sqrt{10}}}  | \mu = 1 \right) \\
+\end{split}
+\end{equation}
+\noindent which is 1 minus the cdf of the standard t-distribution. What happened here is that as soon as we assumed the alternative was true ($\mu=1$) then we needed to re-standardize the t-statistic to get back at the standard t-distribution.
+
+This final line shows us the relationship between power, sample size, effect size, and the critical value. For example, if our effect size (1 in this case) were to be larger, then 1 minus the cdf would be larger and therefore the power would be larger indicating the fact that with a larger true effect size we are more confident in correctly rejecting the null. Another example would be if we increase the sample size (10 in this case) to a larger number. As this number increases, the same result occurs, and we are more confident in correctly rejecting the null. 
+
+This is an important issue to consider in the realm of big data because with lots of data we will almost surely reject the null because our power is so high, even though the effect size might be fairly miniscule. It's almost as if the sheer amount of data overwhelms the effect size in the formula. For example, imagine we take a small sample of 20 people and find that those who take some treatment have an extremely small positive improvement, but our statistical test comes back without enough evidence to reject the null. If we keep all else the same and only increase sample size and find the same effect size, we most likely will reject the null just because of the fact we have more samples which increases our power. The thing to keep in mind however, is that the effect size is the same in both cases and may not be meaningful. 
 
 
 

@@ -1,0 +1,98 @@
+\subsection{Basic Probability Definitions}
+
+This majority of this section comes from the book "Probability: An Introduction" by Samuel Goldberg. I make a note otherwise.
+
+The foundational definition of probability is the \emph{sample space}. This is defined to be the set, $S$, of outcomes associated with an \emph{experiment}, real or conceptual. Each element of this set must be an outcome of the experiment and the "performance of the experiment results in an outcome that corresponds to one and only one element of $S$" (Goldberg, pg. 46).
+
+A basic example would be a coin toss. The sample space here would be $S = \{H,T\}$. With two coins one possible sample space could be $S=\{0,1,2\}$ counting the number of heads from flipping the two coins. This would be a poor choice of a sample space however because it cuts out information. A better choice would be $S=\{HH, HT, TH, TT\}$.
+
+An \emph{event} is a subset of the sample space. So if we wanted the event where the second coin is heads, the subset would be $\{HH, TH\}$.
+
+Given a sample space $S=\{\sigma_1, ..., \sigma_n\}$, there are $2^n$ possible events (to understand why there are $2^n$ imagine each outcome $\sigma_i$ as either ``off" or ``on". This implies that there are 2 possible scenarios for each outcome and with $n$ different outcomes we have $2^n$ possible subsets). We can also consider each of these specific outcomes to be a simple event. The event $\{\sigma_1, \sigma_2\}$ is really made up of the simple events ${\sigma_1} \cup {\sigma_2}$. 
+
+When assigning probabilities we start with assigning probabilities to each simple event. Probabilities of more complex events can then be derived from the probabilities of the simple events. Goldberg has a nice discussion on pg. 60 about the importance of clearly specifying the sample space and how the simple events are assigned probabilities. Sometimes it can be assumed how this is done, like dealing with a fair coin, but other times it needs to be clearly articulated.
+
+The above discussion refers to single experiments like flipping a coin, etc. Many times however we want to know the probability of getting a certain outcome when we perform the same experiment multiple times. In this scenario we refer to the separate experiments as \emph{trials} and the overall process as the experiment. If the sample space of one of these trials is $S$ then the sample space of the experiment will be the cartesian product $SXS$ if we are doing two trials. Since the trials are independent, the probability of a tuple will be the product of the probabilities of the individual simple events. 
+
+A \emph{random variable} is simply a function whose ``domain is a sample space and whose range is some set of real numbers" (pg. 159). The term random variable is a funny name because in reality it is neither random nor a variable. It is important to keep the true definition in mind. Note that the range of the random variable becomes a new sample space that is a set of the real numbers. Essentially we are just translating one sample space into another, where the new sample space are real numbers we can work with. 
+
+The \emph{probability function} (pmf or pdf) of a random variable $X$ is defined by:
+
+\begin{equation}
+f(x) = P(\{\sigma_k \in S | X(\sigma_k) = x\})
+\end{equation}
+\noindent which in words is a function that takes in the real numbers $x$ and assigns probabilities to each real number - the probability that $X$ has the value $x$. Another way to say how these probabilities are assigned is by looking at which simple events in the sample space when passed through the random variable give $x$ and then taking the probability of all those simple events.
+
+The \emph{distribution function} (cdf) of a random variable $X$ is defined by:
+\begin{equation}
+F(x) = P(\{\sigma_k \in S | X(\sigma_k) \leq x\})
+\end{equation}
+
+
+\subsection{Random Variable Transformation}
+
+Sometimes we are interested in the probability distribution of a function of a random variable $X$, such as $Y=g(X)$. When doing these transformations it is important to keep track of the different domains and ranges of all functions involved, including the random variable $X$ and the new random variable $Y$ via the function $g$. The original sample space is sometimes denoted $\Omega$ and is the domain of $X$. The range of $X$ is also a sample space, albeit in the real numbers universe. The random variable $Y$'s domain is therefore the range of $X$. The question then becomes what is the probability distribution of this new range of $Y$, or this new sample space, based off the probabilities in the sample space of $X$ (the range of X). It's possible that $g$ maps two or more elements in $X$'s sample space to one element in $Y$'s sample space and so when calculating probabilities for $Y$ we need to take this into consideration. 
+
+A way to formally write this as found in Casella and Berger on page 48 is the following:
+
+\begin{equation}
+\begin{split}
+P(Y \in A ) & = P(g(X) \in A) \\
+&= P({x \in X: g(x) \in A}) \\
+&= P(X \in g^{-1}(A))
+\end{split}
+\end{equation}
+\noindent which is really just saying that the probability that $Y$ is in $A$ is the probability of all $X$ that give $g(x) \in A$. 
+
+This implies then that if $X$ is a discrete random variable, then $Y$ is as well and the pmf of $Y$ is given by:
+
+\begin{equation}\label{eq:pmf_transform}
+f_Y(y) = P(Y=y) = \sum_{x\in g^{-1}(y)} P(X=x).
+\end{equation}
+
+If $X$ and $Y$ are continuous variables however, then things are a little more complicated. As a first pass assume the function $g$ is monotone. This implies that the relationship between $X$ and $Y$ is one-to-one and onto. We can write the cdf of $Y$ as:
+
+\begin{equation}
+\begin{split}
+F_Y(y) &= P(Y \leq y) \\
+&= P(g(X) \leq y) \\
+&= P(\{x \in \chi :g(x) \leq y \}) \\
+&= \int_{\{x \in \chi: g(x) \leq y \}} f_X(x) dx
+\end{split}
+\end{equation}
+\noindent The last inequality occurs because we are taking the probability over the \emph{set} of $x$ that satisfies the condition $g(x) \leq y$. We need to go one more step however so that we know which bounds to take the integral over. Since $g(x)$ is monotone we can write 
+
+\begin{equation}
+F_Y(y) = \int_{\{x \in \chi: x \leq g^{-1}(y) \}} f_X(x) dx = F_X(g^{-1}(y))
+\end{equation}
+\noindent However, if $g$ is monotonically decreasing it becomes (think of the function g(x) = -x for example):
+
+\begin{equation}
+F_Y(y) =  \int_{\{x \in \chi: x \geq g^{-1}(y) \}} f_X(x) dx = 1 - F_X(g^{-1}(y))
+\end{equation}
+
+To find $f_Y(y)$ then all we have to do is take the derivative of the cdf, split it up into two cases and use the chain rule. This gives us the famous formula:
+
+\begin{equation}
+f_Y(y) = f_X(g^{-1}(y) |\frac{d}{dy} g^{-1}(y)| 
+\end{equation}
+
+
+\subsection{Probability Integral Transformation}
+
+Let $F_X(X)$ be any cdf of a continuous random variable $X$. Let $Y=F_X(X)$. Show that cdf of $Y$ is a uniform cdf:
+
+\begin{equation}
+\begin{split}
+F_Y(Y) &= P(Y \leq y) \\ 
+& = P(F_X(X) \leq y) \\
+&= P(X \leq F^{-1}(y)) \\
+&= F_X(F^{-1}(y)) \\
+&= y
+\end{split}
+\end{equation}
+
+
+
+
+

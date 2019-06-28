@@ -1,0 +1,72 @@
+\subsection{Tf-idf}
+
+Term frequency - inverse document frequency (tf-idf) is a metric that attempts to measure how important a word is to a document. It increases proportionally for a particular word as the number of times the word appears in a document increases, but decreases if that word appears in multiple documents within a corpus. This helps to account for words that appear regularly in language. 
+
+A basic implementation of tf-idf is given by the following. First find the term frequency function:
+
+\begin{equation}
+\text{tf}(t,d) = f_{t,d}
+\end{equation}
+\noindent where $t$ is the term we are assessing, $d$ is a particular document, and $f_{t,d}$ is the simple count of the number of times $t$ appears in the document $d$. We can use other schemes in place of $f_{t,d}$; this is one of the more simple implementations.
+
+The inverse document frequency part can be written as the following:
+
+\begin{equation}
+\text{idf}(t,D) = \log{\frac{N}{|\{d \in D:t\in d \}| }}
+\end{equation}
+\noindent where $D$ is the corpus, $N$ is the number of documents in the corpus, and $|\{d \in D:t\in d \}|$ is the number of documents the term $t$ appears in. Again, there are other metrics than can be used in place of this function but the idea remains roughly the same. 
+
+To get the complete metric we multiply the tf part together with the idf part. 
+
+
+\subsection{Skip-gram}
+
+The main idea in the Skip-gram approach is to use a simple neural network to find vector representations of words that encode context or a better way to say it is representations ``that are useful for predicting the surrounding words in a sentence or document" (source Distributed Representations of Words and Phrases and their Compositionality). 
+
+The way this is done is to take all the words in a sentence or document and encode them as one-hot vectors. The length of these vectors will be equal to the number of words in the document. Training examples are then built by creating tuples of words that appear next to each other. So given the phrase ``the quick brown fox", we generate training examples (``brown", ``quick") and (``brown", ``fox") or in their encoded vector form $([0,0,1,0],[0,1,0,0])$ and $([0,0,1,0],[0,0,0,1])$. 
+
+We then pass these training examples into a single layer neural network with no activation functions. Because we are passing in a one-hot vector this essentially slices a column of the weight matrix, and inputs into the single hidden layer. If, for example, we have 300 hundred hidden nodes and 10,000 words in our document, then our weight matrix will be $300x10,000$ and a slice of the weight matrix will be a vector of size 300. I'm assuming we still include bias in the hidden layer? 
+
+The second layers weight matrix will then be $10,000x300$, outputting a 10,000 length vector. The softmax function is used on the resulting vector which is defined as:
+
+\begin{equation}
+\sigma(\mathbf{z})_i = \frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}} 
+\end{equation}
+\noindent for $i=1,...,K$ and $\mathbf{z} = (z_1, ...,z_K)$.
+
+In words, this function takes in a vector and outputs a vector of the same size, but where each element is exponentiated and divided by the sum of all other elements exponentiated. This new vector is therefore a discrete probability distribution. The name \emph{softmax} comes from the concept that the function is attempting to approximate the arg max function. A better name would probably be the softargmax function, but softmax is commonly used.
+
+Comparing the softmax output with the training label (the one-hot encoded word in the bigram associated with our input) and using gradient descent, will change the weights of the neural network in such a way that the softmax output will converge towards a vector with higher probability on the element associated with 1 in the training label's one-hot vector. The balance to this however, it that a particular training input will have multiple training labels because of the different bigrams, and so the probabilities will change for different elements, forcing the weights to account for the context of words and to encode each word. Another thought about this is that if we were to input the same word as we are trying to predict, then our output layer weight matrix will adjust the weights in the corresponding row in such a way that forces the softmax output to be as close to 1 as possible. However, because we are putting in different words, the corresponding row in the weight matrix will balance the different words to encode context.
+
+In summary, the second layer's weight matrix will provide the 300 length vector representation of each of the 10,000 words. If we wanted to vector representation of the first word in the vocabulary, we would take the first row of the weight matrix. Its important to remember that the output of this whole process is not the model itself but the weight matrix giving us the vector representations. This means we can essentially have a pre-trained dictionary of vector representations, but only for words that were in our original model training. Implementations like FastText however, do something that encodes subwords and so we can actually get vector representations for words the model has never seen. 
+
+The paper ``Distributed Representations of Words and Phrases and their Compositionality" does a couple of things that make the training easier such as removing common words like ``the", putting common phrases together as one word, and doing a process called negative sampling where we only have say 6 output nodes where 5 of them are negative examples and one of them is the true example. This greatly reduces the scale of the problem.
+
+\subsection{Continuous Bag of Words (COBW)}
+
+This is almost the same approach as the Skip-gram model, but instead of passing in tuples to the model we pass in a sentence, or group of words (order doesn't matter hence the term ``bag of words"), that surround the word of interest, and allow this word of interest to be the target value in the model. Each word in the group of words is one-hot encoded and then all one-hot encoded vectors are averaged together. At this point we proceed as before with the Skip-gram model, but with an input vector that is less sparse. This approach creates vectors that represent the target words, but that also encodes the context of the sentence or group of words that are passed in. 
+
+COBW is faster, but Skip-gram does better on less frequent words (see \href{https://code.google.com/archive/p/word2vec/}{here}). Also see this \href{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}{tutorial} I used for a more intuitive understanding of word2vec.
+
+\subsection{Latent Dirichlet Allocation}
+
+The majority of this section comes from the original paper ``Latent Dirichlet Allocation" by Andrew Ng, Michael Jordan, and David Blei and a lab from the applied math program at BYU found \href{http://acme.byu.edu/wp-content/uploads/2019/01/GibbsSampling.pdf}{here}.
+
+Assume we have a vocabulary set of size $V$ (meaning we consider $V$ number of words), a corpus size of $M$, (meaning we have $M$ different documents), and $K$ different topics. 
+
+LDA is a generative model process where we assume a process that ``generates" our documents and words. The BYU ACME lab does a good job of outlining this process:
+
+\begin{enumerate}
+\item Choose $\phi_k \sim  \text{Dir}(\beta)$ for $1 \leq k \leq K$
+\end{enumerate}
+For $1 \leq m \leq M$:
+\begin{enumerate}
+\item Choose $\theta_m \sim \text{Dir}(\alpha)$
+\item Choose $z_{m,n} \sim  \text{Cat}(\theta_m)$ for $1 \leq n \leq N_m$
+\item Choose $w_{m,n} \sim  \text{Cat}(\phi_{z_{m,n}})$ for $1 \leq n \leq N_m$
+\end{enumerate}
+\noindent In words the first step is to draw probability vectors $\phi_k$ of length $V$ for each topic $k$. Draws from a Dirichlet distribution return a vector of probabilities, essentially the multi-variate version of the beta distribution. This vector encodes the way each topic is represented by the vocabulary of $V$ words.
+
+The next step is to generate the $M$ documents. This is done by again drawing from the Dirichlet distribution, but this time taking a vector of length $K$ ($\theta_m$) and thereby encoding the way the $m^{th}$ document is represented by the $K$ topics. In other words, this vector gives us the probabilities that the $m^{th}$ document is assigned to topic $k$. 
+
+We then pass the $\theta_m$ vector into a categorical distribution and repeat $N_m$ times, giving us $N_m$ integers that represent each topic, where the probabilities of the categorical distribution are given by $\theta_m$. The last step is to draw $N_m$ words $w_{m,n}$ from another categorical distribution, which this time is parameterized by $\phi_{z_{m,n}}$, or the probability vector for the $z_{m,n}^{th}$ topic.

@@ -1,3 +1,7 @@
 \subsection{Bayesian Hierarchical Models}
 
-The need for hierarchical models arise when 
+The majority of this section comes from Bayesian Data Analysis (BDA) by Gelman et. al.
+
+The need for hierarchical models arise when we have data that are dependent on parameters, which in turn are related to each other. The example that BDA gives is of the study of cardiac treatment effectiveness. It is reasonable to assume that the data $y_{ij}$ collected over different hospitals come from different parameters, with a parameter for each hospital. We can then treat these parameters as coming from a higher distribution, and then estimate the parameters of the higher distribution based on the data. This allows us to control for the group level effect and helps us fit a better model.
+
+ 

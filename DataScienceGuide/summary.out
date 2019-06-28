@@ -25,10 +25,21 @@
 \BOOKMARK [2][-]{subsection.6.2}{Backprop}{section.6}% 25
 \BOOKMARK [1][-]{section.7}{Unsupervised}{}% 26
 \BOOKMARK [2][-]{subsection.7.1}{Principal Components Analysis}{section.7}% 27
-\BOOKMARK [1][-]{section.8}{Classical Statistics}{}% 28
-\BOOKMARK [2][-]{subsection.8.1}{Statistical Tests}{section.8}% 29
-\BOOKMARK [2][-]{subsection.8.2}{Analysis of Variance \(ANOVA\)}{section.8}% 30
-\BOOKMARK [1][-]{section.9}{Terms and Notation}{}% 31
-\BOOKMARK [2][-]{subsection.9.1}{Variable notiation}{section.9}% 32
-\BOOKMARK [1][-]{section.10}{Basic Statistical Concepts}{}% 33
-\BOOKMARK [2][-]{subsection.10.1}{Inference}{section.10}% 34
+\BOOKMARK [1][-]{section.8}{Basic Probability}{}% 28
+\BOOKMARK [2][-]{subsection.8.1}{Basic Probability Definitions}{section.8}% 29
+\BOOKMARK [2][-]{subsection.8.2}{Random Variable Transformation}{section.8}% 30
+\BOOKMARK [2][-]{subsection.8.3}{Probability Integral Transformation}{section.8}% 31
+\BOOKMARK [1][-]{section.9}{Classical Statistics}{}% 32
+\BOOKMARK [2][-]{subsection.9.1}{Statistical Tests}{section.9}% 33
+\BOOKMARK [2][-]{subsection.9.2}{Analysis of Variance \(ANOVA\)}{section.9}% 34
+\BOOKMARK [2][-]{subsection.9.3}{Power Analysis}{section.9}% 35
+\BOOKMARK [1][-]{section.10}{Natural Language Processing}{}% 36
+\BOOKMARK [2][-]{subsection.10.1}{Tf-idf}{section.10}% 37
+\BOOKMARK [2][-]{subsection.10.2}{Skip-gram}{section.10}% 38
+\BOOKMARK [2][-]{subsection.10.3}{Continuous Bag of Words \(COBW\)}{section.10}% 39
+\BOOKMARK [2][-]{subsection.10.4}{Latent Dirichlet Allocation}{section.10}% 40
+\BOOKMARK [2][-]{subsection.10.5}{Problems}{section.10}% 41
+\BOOKMARK [1][-]{section.11}{Terms and Notation}{}% 42
+\BOOKMARK [2][-]{subsection.11.1}{Variable notiation}{section.11}% 43
+\BOOKMARK [1][-]{section.12}{Basic Statistical Concepts}{}% 44
+\BOOKMARK [2][-]{subsection.12.1}{Inference}{section.12}% 45

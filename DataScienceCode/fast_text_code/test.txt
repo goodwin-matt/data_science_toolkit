@@ -1,0 +1,162 @@
+In vector calculus, the Jacobian matrix (/dʒəˈkoʊbiən/,[1][2][3] /dʒɪ-, jɪ-/) is the matrix of all first-order partial derivatives of a vector-valued function. When the matrix is a square matrix, both the matrix and its determinant are referred to as the Jacobian in literature.[4]
+
+Suppose f : ℝn → ℝm is a function which takes as input the vector x ∈ ℝn and produces as output the vector f(x) ∈ ℝm. Then the Jacobian matrix J of f is an m×n matrix, usually defined and arranged as follows:
+
+{\displaystyle \mathbf {J} ={\begin{bmatrix}{\dfrac {\partial \mathbf {f} }{\partial x_{1}}}&\cdots &{\dfrac {\partial \mathbf {f} }{\partial x_{n}}}\end{bmatrix}}={\begin{bmatrix}{\dfrac {\partial f_{1}}{\partial x_{1}}}&\cdots &{\dfrac {\partial f_{1}}{\partial x_{n}}}\\\vdots &\ddots &\vdots \\{\dfrac {\partial f_{m}}{\partial x_{1}}}&\cdots &{\dfrac {\partial f_{m}}{\partial x_{n}}}\end{bmatrix}}} {\displaystyle \mathbf {J} ={\begin{bmatrix}{\dfrac {\partial \mathbf {f} }{\partial x_{1}}}&\cdots &{\dfrac {\partial \mathbf {f} }{\partial x_{n}}}\end{bmatrix}}={\begin{bmatrix}{\dfrac {\partial f_{1}}{\partial x_{1}}}&\cdots &{\dfrac {\partial f_{1}}{\partial x_{n}}}\\\vdots &\ddots &\vdots \\{\dfrac {\partial f_{m}}{\partial x_{1}}}&\cdots &{\dfrac {\partial f_{m}}{\partial x_{n}}}\end{bmatrix}}}
+or, component-wise:
+
+{\displaystyle \mathbf {J} _{ij}={\frac {\partial f_{i}}{\partial x_{j}}}.} {\displaystyle \mathbf {J} _{ij}={\frac {\partial f_{i}}{\partial x_{j}}}.}
+This matrix, whose entries are functions of x, is also denoted by Df, Jf, and 
+∂(f1,...,fm)
+/
+∂(x1,...,xn)
+. (Note that some literature defines the Jacobian as the transpose of the matrix given above.)
+
+The Jacobian matrix is important because if the function f is differentiable at a point x (this is a slightly stronger condition than merely requiring that all partial derivatives exist at x), then the Jacobian matrix defines a linear map ℝn → ℝm, which is the best (pointwise) linear approximation of the function f near the point x. This linear map is thus the generalization of the usual notion of derivative, and is called the derivative or the differential of f at x.
+
+If m = n, the Jacobian matrix is a square matrix, and its determinant, a function of x1, …, xn, is the Jacobian determinant of f. It carries important information about the local behavior of f. In particular, the function f has locally in the neighborhood of a point x an inverse function that is differentiable if and only if the Jacobian determinant is nonzero at x (see Jacobian conjecture). The Jacobian determinant also appears when changing the variables in multiple integrals (see substitution rule for multiple variables).
+
+If m = 1, f is a scalar field and the Jacobian matrix is reduced to a row vector of partial derivatives of f—i.e. the transpose of the gradient of f, when denoted as column vector with respect to the ordered basis {\displaystyle \{{\hat {\mathbf {x} }}_{1},\cdots ,{\hat {\mathbf {x} }}_{n}\}} {\displaystyle \{{\hat {\mathbf {x} }}_{1},\cdots ,{\hat {\mathbf {x} }}_{n}\}}.
+
+These concepts are named after the mathematician Carl Gustav Jacob Jacobi (1804–1851).
+
+
+Contents
+1	Jacobian matrix
+2	Jacobian determinant
+3	Inverse
+4	Critical points
+5	Examples
+5.1	Example 1
+5.2	Example 2: polar-Cartesian transformation
+5.3	Example 3: spherical-Cartesian transformation
+5.4	Example 4
+5.5	Example 5
+6	Other uses
+6.1	Dynamical systems
+6.2	Newton's method
+6.3	Surface analysis
+7	See also
+8	References
+9	Further reading
+10	External links
+Jacobian matrix
+The Jacobian generalizes the gradient of a scalar-valued function of multiple variables, which itself generalizes the derivative of a scalar-valued function of a single variable. In other words, the Jacobian for a scalar-valued multivariate function is the gradient and that of a scalar-valued function of single variable is simply its derivative. The Jacobian can also be thought of as describing the amount of "stretching", "rotating" or "transforming" that a transformation imposes locally. For example, if (x′, y′) = f(x, y) is used to transform an image, the Jacobian Jf(x, y), describes how the image in the neighborhood of (x, y) is transformed.
+
+If a function is differentiable at a point, its derivative is given in coordinates by the Jacobian, but a function does not need to be differentiable for the Jacobian to be defined, since only the partial derivatives are required to exist.
+
+If p is a point in ℝn and f is differentiable at p, then its derivative is given by Jf(p). In this case, the linear map described by Jf(p) is the best linear approximation of f near the point p, in the sense that
+
+{\displaystyle \mathbf {f} (\mathbf {x} )=\mathbf {f} (\mathbf {p} )+\mathbf {J} _{\mathbf {f} }(\mathbf {p} )(\mathbf {x} -\mathbf {p} )+o(\|\mathbf {x} -\mathbf {p} \|)} \mathbf {f} (\mathbf {x} )=\mathbf {f} (\mathbf {p} )+\mathbf {J} _{\mathbf {f} }(\mathbf {p} )(\mathbf {x} -\mathbf {p} )+o(\|\mathbf {x} -\mathbf {p} \|)
+for x close to p and where o is the little o-notation (for x → p) and ‖x − p‖ is the distance between x and p. (See Total derivative#The total derivative as a linear map.)
+
+Compare this to a Taylor series for a scalar function of a scalar argument, truncated to first order:
+
+{\displaystyle f(x)=f(p)+f'(p)(x-p)+o(x-p).} f(x)=f(p)+f'(p)(x-p)+o(x-p).
+In a sense, both the gradient and Jacobian are "first derivatives"—the former the first derivative of a scalar function of several variables, the latter the first derivative of a vector function of several variables.
+
+The Jacobian of the gradient of a scalar function of several variables has a special name: the Hessian matrix, which in a sense is the "second derivative" of the function in question.
+
+Jacobian determinant
+
+A nonlinear map {\displaystyle f\colon \mathbb {R} ^{2}\to \mathbb {R} ^{2}} {\displaystyle f\colon \mathbb {R} ^{2}\to \mathbb {R} ^{2}} sends a small square (left, in red) to a distorted parallelogram (right, in red). The Jacobian at a point gives the best linear approximation of the distorted parallelogram near that point (right, in translucent white), and the Jacobian determinant gives the ratio of the area of the approximating parallelogram to that of the original square.
+If m = n, then f is a function from ℝn to itself and the Jacobian matrix is a square matrix. We can then form its determinant, known as the Jacobian determinant. The Jacobian determinant is sometimes referred to as "the Jacobian".
+
+The Jacobian determinant at a given point gives important information about the behavior of f near that point. For instance, the continuously differentiable function f is invertible near a point p ∈ ℝn if the Jacobian determinant at p is non-zero. This is the inverse function theorem. Furthermore, if the Jacobian determinant at p is positive, then f preserves orientation near p; if it is negative, f reverses orientation. The absolute value of the Jacobian determinant at p gives us the factor by which the function f expands or shrinks volumes near p; this is why it occurs in the general substitution rule.
+
+The Jacobian determinant is used when making a change of variables when evaluating a multiple integral of a function over a region within its domain. To accommodate for the change of coordinates the magnitude of the Jacobian determinant arises as a multiplicative factor within the integral. This is because the n-dimensional dV element is in general a parallelepiped in the new coordinate system, and the n-volume of a parallelepiped is the determinant of its edge vectors.
+
+The Jacobian can also be used to solve systems of differential equations at an equilibrium point or approximate solutions near an equilibrium point. Its applications include determining the stability of the disease-free equilibrium in disease modelling.[5]
+
+Inverse
+According to the inverse function theorem, the matrix inverse of the Jacobian matrix of an invertible function is the Jacobian matrix of the inverse function. That is, if the Jacobian of the function f : ℝn → ℝn is continuous and nonsingular at the point p in ℝn, then f is invertible when restricted to some neighborhood of p and
+
+{\displaystyle \mathbf {J} _{\mathbf {f} ^{-1}}\circ \mathbf {f} ={\mathbf {J} _{\mathbf {f} }}^{-1}.} \mathbf {J} _{\mathbf {f} ^{-1}}\circ \mathbf {f} ={\mathbf {J} _{\mathbf {f} }}^{-1}.
+Conversely, if the Jacobian determinant is not zero at a point, then the function is locally invertible near this point, that is, there is a neighbourhood of this point in which the function is invertible.
+
+The (unproved) Jacobian conjecture is related to global invertibility in the case of a polynomial function, that is a function defined by n polynomials in n variables. It asserts that, if the Jacobian determinant is a non-zero constant (or, equivalently, that it does not have any complex zero), then the function is invertible and its inverse is a polynomial function.
+
+Critical points
+Main article: Critical point
+If f : ℝn → ℝm is a differentiable function, a critical point of f is a point where the rank of the Jacobian matrix is not maximal. This means that the rank at the critical point is lower than the rank at some neighbour point. In other words, let k be the maximal dimension of the open balls contained in the image of f; then a point is critical if all minors of rank k of f are zero.
+
+In the case where 1 = m = n = k, a point is critical if the Jacobian determinant is zero.
+
+Examples
+Example 1
+Consider the function f : ℝ2 → ℝ2, with (x, y) ↦ (f1(x, y), f2(x, y)), given by
+
+{\displaystyle \mathbf {f} \left({\begin{bmatrix}x\\y\end{bmatrix}}\right)={\begin{bmatrix}f_{1}(x,y)\\f_{2}(x,y)\end{bmatrix}}={\begin{bmatrix}x^{2}y\\5x+\sin y\end{bmatrix}}.} {\displaystyle \mathbf {f} \left({\begin{bmatrix}x\\y\end{bmatrix}}\right)={\begin{bmatrix}f_{1}(x,y)\\f_{2}(x,y)\end{bmatrix}}={\begin{bmatrix}x^{2}y\\5x+\sin y\end{bmatrix}}.}
+Then we have
+
+{\displaystyle f_{1}(x,y)=x^{2}y} f_{1}(x,y)=x^{2}y
+and
+
+{\displaystyle f_{2}(x,y)=5x+\sin y} f_{2}(x,y)=5x+\sin y
+and the Jacobian matrix of f is
+
+{\displaystyle \mathbf {J} _{\mathbf {f} }(x,y)={\begin{bmatrix}{\dfrac {\partial f_{1}}{\partial x}}&{\dfrac {\partial f_{1}}{\partial y}}\\[1em]{\dfrac {\partial f_{2}}{\partial x}}&{\dfrac {\partial f_{2}}{\partial y}}\end{bmatrix}}={\begin{bmatrix}2xy&x^{2}\\5&\cos y\end{bmatrix}}} \mathbf {J} _{\mathbf {f} }(x,y)={\begin{bmatrix}{\dfrac {\partial f_{1}}{\partial x}}&{\dfrac {\partial f_{1}}{\partial y}}\\[1em]{\dfrac {\partial f_{2}}{\partial x}}&{\dfrac {\partial f_{2}}{\partial y}}\end{bmatrix}}={\begin{bmatrix}2xy&x^{2}\\5&\cos y\end{bmatrix}}
+and the Jacobian determinant is
+
+{\displaystyle \det(\mathbf {J} _{\mathbf {f} }(x,y))=2xy\cos y-5x^{2}.} \det(\mathbf {J} _{\mathbf {f} }(x,y))=2xy\cos y-5x^{2}.
+Example 2: polar-Cartesian transformation
+The transformation from polar coordinates (r, φ) to Cartesian coordinates (x, y), is given by the function F: ℝ+ × [0, 2π) → ℝ2 with components:
+
+{\displaystyle {\begin{aligned}x&=r\cos \varphi ;\\y&=r\sin \varphi .\end{aligned}}} {\begin{aligned}x&=r\cos \varphi ;\\y&=r\sin \varphi .\end{aligned}}
+{\displaystyle \mathbf {J} _{\mathbf {F} }(r,\varphi )={\begin{bmatrix}{\dfrac {\partial x}{\partial r}}&{\dfrac {\partial x}{\partial \varphi }}\\[1em]{\dfrac {\partial y}{\partial r}}&{\dfrac {\partial y}{\partial \varphi }}\end{bmatrix}}={\begin{bmatrix}\cos \varphi &-r\sin \varphi \\\sin \varphi &r\cos \varphi \end{bmatrix}}} {\displaystyle \mathbf {J} _{\mathbf {F} }(r,\varphi )={\begin{bmatrix}{\dfrac {\partial x}{\partial r}}&{\dfrac {\partial x}{\partial \varphi }}\\[1em]{\dfrac {\partial y}{\partial r}}&{\dfrac {\partial y}{\partial \varphi }}\end{bmatrix}}={\begin{bmatrix}\cos \varphi &-r\sin \varphi \\\sin \varphi &r\cos \varphi \end{bmatrix}}}
+The Jacobian determinant is equal to r. This can be used to transform integrals between the two coordinate systems:
+
+{\displaystyle \iint _{\mathbf {F} (A)}f(x,y)\,dx\,dy=\iint _{A}f(r\cos \varphi ,r\sin \varphi )\,r\,dr\,d\varphi .} {\displaystyle \iint _{\mathbf {F} (A)}f(x,y)\,dx\,dy=\iint _{A}f(r\cos \varphi ,r\sin \varphi )\,r\,dr\,d\varphi .}
+Example 3: spherical-Cartesian transformation
+The transformation from spherical coordinates (r, θ, φ) to Cartesian coordinates (x, y, z), is given by the function F: ℝ+ × [0, π] × [0, 2 π) → ℝ3 with components:
+
+{\displaystyle {\begin{aligned}x&=r\sin \theta \cos \varphi ;\\y&=r\sin \theta \sin \varphi ;\\z&=r\cos \theta .\end{aligned}}} {\begin{aligned}x&=r\sin \theta \cos \varphi ;\\y&=r\sin \theta \sin \varphi ;\\z&=r\cos \theta .\end{aligned}}
+The Jacobian matrix for this coordinate change is
+
+{\displaystyle \mathbf {J} _{\mathbf {F} }(r,\theta ,\varphi )={\begin{bmatrix}{\dfrac {\partial x}{\partial r}}&{\dfrac {\partial x}{\partial \theta }}&{\dfrac {\partial x}{\partial \varphi }}\\[1em]{\dfrac {\partial y}{\partial r}}&{\dfrac {\partial y}{\partial \theta }}&{\dfrac {\partial y}{\partial \varphi }}\\[1em]{\dfrac {\partial z}{\partial r}}&{\dfrac {\partial z}{\partial \theta }}&{\dfrac {\partial z}{\partial \varphi }}\end{bmatrix}}={\begin{bmatrix}\sin \theta \cos \varphi &r\cos \theta \cos \varphi &-r\sin \theta \sin \varphi \\\sin \theta \sin \varphi &r\cos \theta \sin \varphi &r\sin \theta \cos \varphi \\\cos \theta &-r\sin \theta &0\end{bmatrix}}.} \mathbf {J} _{\mathbf {F} }(r,\theta ,\varphi )={\begin{bmatrix}{\dfrac {\partial x}{\partial r}}&{\dfrac {\partial x}{\partial \theta }}&{\dfrac {\partial x}{\partial \varphi }}\\[1em]{\dfrac {\partial y}{\partial r}}&{\dfrac {\partial y}{\partial \theta }}&{\dfrac {\partial y}{\partial \varphi }}\\[1em]{\dfrac {\partial z}{\partial r}}&{\dfrac {\partial z}{\partial \theta }}&{\dfrac {\partial z}{\partial \varphi }}\end{bmatrix}}={\begin{bmatrix}\sin \theta \cos \varphi &r\cos \theta \cos \varphi &-r\sin \theta \sin \varphi \\\sin \theta \sin \varphi &r\cos \theta \sin \varphi &r\sin \theta \cos \varphi \\\cos \theta &-r\sin \theta &0\end{bmatrix}}.
+The determinant is r2 sin θ. As an example, since dV = dx dy dz this determinant implies that the differential volume element dV = r2 sin θ dr dθ dφ. Unlike for a change of Cartesian coordinates, this determinant is not a constant, and varies with coordinates (r and θ).
+
+Example 4
+The Jacobian matrix of the function F : ℝ3 → ℝ4 with components
+
+{\displaystyle {\begin{aligned}y_{1}&=x_{1}\\y_{2}&=5x_{3}\\y_{3}&=4x_{2}^{2}-2x_{3}\\y_{4}&=x_{3}\sin x_{1}\end{aligned}}} {\begin{aligned}y_{1}&=x_{1}\\y_{2}&=5x_{3}\\y_{3}&=4x_{2}^{2}-2x_{3}\\y_{4}&=x_{3}\sin x_{1}\end{aligned}}
+is
+
+{\displaystyle \mathbf {J} _{\mathbf {F} }(x_{1},x_{2},x_{3})={\begin{bmatrix}{\dfrac {\partial y_{1}}{\partial x_{1}}}&{\dfrac {\partial y_{1}}{\partial x_{2}}}&{\dfrac {\partial y_{1}}{\partial x_{3}}}\\[1em]{\dfrac {\partial y_{2}}{\partial x_{1}}}&{\dfrac {\partial y_{2}}{\partial x_{2}}}&{\dfrac {\partial y_{2}}{\partial x_{3}}}\\[1em]{\dfrac {\partial y_{3}}{\partial x_{1}}}&{\dfrac {\partial y_{3}}{\partial x_{2}}}&{\dfrac {\partial y_{3}}{\partial x_{3}}}\\[1em]{\dfrac {\partial y_{4}}{\partial x_{1}}}&{\dfrac {\partial y_{4}}{\partial x_{2}}}&{\dfrac {\partial y_{4}}{\partial x_{3}}}\end{bmatrix}}={\begin{bmatrix}1&0&0\\0&0&5\\0&8x_{2}&-2\\x_{3}\cos x_{1}&0&\sin x_{1}\end{bmatrix}}.} \mathbf {J} _{\mathbf {F} }(x_{1},x_{2},x_{3})={\begin{bmatrix}{\dfrac {\partial y_{1}}{\partial x_{1}}}&{\dfrac {\partial y_{1}}{\partial x_{2}}}&{\dfrac {\partial y_{1}}{\partial x_{3}}}\\[1em]{\dfrac {\partial y_{2}}{\partial x_{1}}}&{\dfrac {\partial y_{2}}{\partial x_{2}}}&{\dfrac {\partial y_{2}}{\partial x_{3}}}\\[1em]{\dfrac {\partial y_{3}}{\partial x_{1}}}&{\dfrac {\partial y_{3}}{\partial x_{2}}}&{\dfrac {\partial y_{3}}{\partial x_{3}}}\\[1em]{\dfrac {\partial y_{4}}{\partial x_{1}}}&{\dfrac {\partial y_{4}}{\partial x_{2}}}&{\dfrac {\partial y_{4}}{\partial x_{3}}}\end{bmatrix}}={\begin{bmatrix}1&0&0\\0&0&5\\0&8x_{2}&-2\\x_{3}\cos x_{1}&0&\sin x_{1}\end{bmatrix}}.
+This example shows that the Jacobian need not be a square matrix.
+
+Example 5
+The Jacobian determinant of the function F : ℝ3 → ℝ3 with components
+
+{\displaystyle {\begin{aligned}y_{1}&=5x_{2}\\y_{2}&=4x_{1}^{2}-2\sin(x_{2}x_{3})\\y_{3}&=x_{2}x_{3}\end{aligned}}} {\begin{aligned}y_{1}&=5x_{2}\\y_{2}&=4x_{1}^{2}-2\sin(x_{2}x_{3})\\y_{3}&=x_{2}x_{3}\end{aligned}}
+is
+
+{\displaystyle {\begin{vmatrix}0&5&0\\8x_{1}&-2x_{3}\cos(x_{2}x_{3})&-2x_{2}\cos(x_{2}x_{3})\\0&x_{3}&x_{2}\end{vmatrix}}=-8x_{1}{\begin{vmatrix}5&0\\x_{3}&x_{2}\end{vmatrix}}=-40x_{1}x_{2}.} {\begin{vmatrix}0&5&0\\8x_{1}&-2x_{3}\cos(x_{2}x_{3})&-2x_{2}\cos(x_{2}x_{3})\\0&x_{3}&x_{2}\end{vmatrix}}=-8x_{1}{\begin{vmatrix}5&0\\x_{3}&x_{2}\end{vmatrix}}=-40x_{1}x_{2}.
+From this we see that F reverses orientation near those points where x1 and x2 have the same sign; the function is locally invertible everywhere except near points where x1 = 0 or x2 = 0. Intuitively, if one starts with a tiny object around the point (1, 2, 3) and apply F to that object, one will get a resulting object with approximately 40 × 1 × 2 = 80 times the volume of the original one, with orientation reversed.
+
+Other uses
+The Jacobian serves as a linearized design matrix in statistical regression and curve fitting; see non-linear least squares.
+
+Dynamical systems
+Consider a dynamical system of the form {\displaystyle {\dot {\mathbf {x} }}=F(\mathbf {x} )} {\dot  {{\mathbf  {x}}}}=F({\mathbf  {x}}), where {\displaystyle {\dot {\mathbf {x} }}} {\dot  {{\mathbf  {x}}}} is the (component-wise) derivative of {\displaystyle \mathbf {x} } \mathbf {x}  with respect to the evolution parameter {\displaystyle t} t (time), and {\displaystyle F\colon \mathbb {R} ^{n}\to \mathbb {R} ^{n}} {\displaystyle F\colon \mathbb {R} ^{n}\to \mathbb {R} ^{n}} is differentiable. If {\displaystyle F(\mathbf {x} _{0})=0} {\displaystyle F(\mathbf {x} _{0})=0}, then {\displaystyle \mathbf {x} _{0}} \mathbf{x}_{0} is a stationary point (also called a steady state). By the Hartman–Grobman theorem, the behavior of the system near a stationary point is related to the eigenvalues of {\displaystyle \mathbf {J} _{F}\left(\mathbf {x} _{0}\right)} {\displaystyle \mathbf {J} _{F}\left(\mathbf {x} _{0}\right)}, the Jacobian of {\displaystyle F} F at the stationary point.[6] Specifically, if the eigenvalues all have real parts that are negative, then the system is stable near the stationary point, if any eigenvalue has a real part that is positive, then the point is unstable. If the largest real part of the eigenvalues is zero, the Jacobian matrix does not allow for an evaluation of the stability.[7]
+
+Newton's method
+A square system of coupled nonlinear equations can be solved iteratively by Newton's method. This method uses the Jacobian matrix of the system of equations.
+
+Surface analysis
+Let n = 2 so the Jacobian is a 2 × 2 real matrix. Suppose a surface diffeomorphism f: U → V in the neighborhood of p in U is written {\displaystyle (u(x,y),\ v(x,y)).} {\displaystyle (u(x,y),\ v(x,y)).} The matrix {\displaystyle \mathbf {J} _{\mathbf {f} }(\mathbf {p} )} {\displaystyle \mathbf {J} _{\mathbf {f} }(\mathbf {p} )} can be interpreted as a complex number: ordinary, split, or dual. Furthermore, since {\displaystyle \mathbf {J} _{\mathbf {f} }(\mathbf {p} )} {\displaystyle \mathbf {J} _{\mathbf {f} }(\mathbf {p} )} is invertible, the complex number has a polar decomposition or an alternative planar decomposition.
+
+And again, each such complex number represents a group action on the tangent plane at p. The action is dilation by the norm of the complex number, and rotation respecting angle, hyperbolic angle, or slope, according to the case of {\displaystyle \mathbf {J} _{\mathbf {f} }(\mathbf {p} ).} {\displaystyle \mathbf {J} _{\mathbf {f} }(\mathbf {p} ).} Such action corresponds to a conformal mapping.
+
+See also
+Center manifold
+Hessian matrix
+Pushforward (differential)
+References
+ "Jacobian - Definition of Jacobian in English by Oxford Dictionaries". Oxford Dictionaries - English. Archived from the original on 1 December 2017. Retrieved 2 May 2018.
+ "the definition of jacobian". Dictionary.com. Archived from the original on 1 December 2017. Retrieved 2 May 2018.
+ Team, Forvo. "Jacobian pronunciation: How to pronounce Jacobian in English". forvo.com. Retrieved 2 May 2018.
+ W., Weisstein, Eric. "Jacobian". mathworld.wolfram.com. Archived from the original on 3 November 2017. Retrieved 2 May 2018.
+ Smith? RJ (2015). "The Joys of the Jacobian". Chalkdust. 2: 10–17.
+ Arrowsmith, D. K.; Place, C. M. (1992). "The Linearization Theorem". Dynamical Systems: Differential Equations, Maps, and Chaotic Behaviour. London: Chapman & Hall. pp. 77–81. ISBN 0-412-39080-9.
+ Hirsch, Morris; Smale, Stephen (1974). Differential equations, dynamical systems and linear algebra.
