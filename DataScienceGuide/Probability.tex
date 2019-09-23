@@ -1,3 +1,14 @@
+\subsection{Counting}
+
+\begin{table}\label{table:counting}
+\begin{tabular}{lll}
+                    & Order Matters & Order Does Not Matter \\
+With Replacement    &  $n^k$             &       ${n+k-1} \choose {k}$              \\
+Without Replacement &   $\frac{n!}{(n-k)!}$            &  ${n} \choose {k} $                    
+\end{tabular}
+\end{table}
+
+
 \subsection{Basic Probability Definitions}
 
 This majority of this section comes from the book "Probability: An Introduction" by Samuel Goldberg. I make a note otherwise.
@@ -76,6 +87,34 @@ To find $f_Y(y)$ then all we have to do is take the derivative of the cdf, split
 \begin{equation}
 f_Y(y) = f_X(g^{-1}(y) |\frac{d}{dy} g^{-1}(y)| 
 \end{equation}
+
+\subsection{Bivariate Transformation}
+
+Bivariate transformations occur when we have a bivariate random vector $(X,Y)$ that is transformed into the bivariate vector $(U,V)$ via the functions $U=g_1(X,Y)$ and $V=g_2(X,Y)$. If $(X,Y)$ is a discrete random vector then the transformation formula is much the same as the univariate case, where we sum up the probabilities in the $(X,Y)$ space that map to each $U,V$. More specifically we have:
+
+\begin{equation}
+f_{U,V}(u,v) = \sum_{(x,y) \in A_{uv}} f_{X,Y}(x,y)
+\end{equation}
+\noindent where $A_{uv}$ is the set of $(x,y)$ in the support of $(X,Y)$ such that $g_1(x,y) = u$ and $g_2(x,y)=v$. See problem \ref{item:sum_possion} for an example.
+
+If $(X,Y)$ is continuous however then, analogous to the one dimensional version, we use the Jacobian in place of the derivative giving us:
+
+\begin{equation}
+f_{U,V}(u,v) = f_{X,Y}(h_1(u,v), h_2(u,v))|J|
+\end{equation}
+
+\noindent where $|J|$ is the determinant given by $\frac{\partial x}{\partial u} \frac{\partial y}{\partial v} - \frac{\partial y}{\partial u} \frac{\partial x}{\partial v}$. The Jacobian is analogous to a derivative of a function going from $R^{m}$ to $R^{n}$ which in this case is the function $(x,y) = (h_1(u,v), h_2(u,v))$. 
+
+This also assumes that our transformation is 1-1 and onto.
+
+\subsection{Convolution}
+If we are interested in the pdf of the sum of two independent continuous random variables we can also use the convolution formula. This formula simply uses the bivariate transformation. Let $Z=X+Y$ and $W=X$. The inverse functions we care about will then be $Y=Z-W$ and $X=W$. The determinant of the Jacobian will be 1. Plugging this into our bivariate transformation formula we have:
+
+\begin{equation}
+f_{Z,W}(z,w) = f_{X,Y}(W, Z-W) = f_X(W)f_Y(Z-W)
+\end{equation}
+\noindent where the last step occurs because of independence between $X$ and $Y$. We then integrate out $W$ to obtain the pdf of $Z=X+Y$.
+
 
 
 \subsection{Probability Integral Transformation}
