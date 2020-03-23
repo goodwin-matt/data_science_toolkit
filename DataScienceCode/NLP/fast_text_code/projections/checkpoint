@@ -1,0 +1,2 @@
+model_checkpoint_path: "g2x_metadata.ckpt"
+all_model_checkpoint_paths: "g2x_metadata.ckpt"

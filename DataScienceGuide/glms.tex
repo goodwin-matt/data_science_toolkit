@@ -35,15 +35,6 @@ Using the component concepts outlined above, for logistic regression we have:
 \end{equation}
 \end{enumerate}
 
-Assumptions:
-\begin{enumerate}
-\item Linearity in log-odds
-\item Independence of $Y_i|x_i$ and $Y_j|x_j$
-\item Bernoulli response variable
-\end{enumerate}
-
-For interpretation we can say that with a one unit increase in $X_1$ for example, then the log odds of a success goes up by $\beta_1$. We can also use the multiplicative odds where a one unit increase in $X_1$ leads to a $e^{\beta_1}$ multiplicative change in odds on average.
-
 The probability can be calculated by:
 \begin{equation}
 \begin{split}
@@ -53,3 +44,31 @@ The probability can be calculated by:
 \pi_i &= \frac{e^{\beta_0 + x_i \beta_1}}{1+e^{\beta_0 + x_i \beta_1}}
 \end{split}
 \end{equation}
+
+The question then becomes how do we find estimates for out $\beta$. Time to whip out our trusty maximum likelihood method.
+
+We can write the joint probability of our response variables $Y_i$ as $f(Y_1, Y_2, ..., Y_n | \beta)$. If we assume that each instance $(Y_i)$ is independent then we can break this down as:
+
+\begin{equation}
+f(Y_1, Y_2, ..., Y_n | \beta) = \prod_i^{n} (1-p_i)^{1-y_i} p_i^{y_i}
+\end{equation} 
+
+If we take the logarithm (which won't change the optimum since the logarithm is monotonic) we have
+\begin{equation}
+\log(\prod_i^{n} (1-p_i)^{1-y_i} p_i^{y_i}) = \sum_i^n ((1-y_i)\log(1-p_i) + y_i\log(p_i)) 
+\end{equation} 
+
+We can continue to manipulate this and plug in the expression for $p_i$ but in the end we find that when we set the derivative equal to 0 we can't find a way to isolate $\beta$. This then requires us to use iterative techniques such as the Newton-Raphson method. 
+
+Through all of the above discussion we have made three main assumption about our model and data:
+
+Assumptions:
+\begin{enumerate}
+\item Linearity in log-odds
+\item Independence of $Y_i|x_i$ and $Y_j|x_j$
+\item Bernoulli response variable
+\end{enumerate}
+
+For interpretation we can say that with a one unit increase in $X_1$ for example, then the log odds of a success goes up by $\beta_1$. We can also use the multiplicative odds where a one unit increase in $X_1$ leads to a $e^{\beta_1}$ multiplicative change in odds on average.
+
+

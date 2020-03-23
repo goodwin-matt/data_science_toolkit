@@ -108,9 +108,11 @@ Nielsen brings up two good points with regards to the loss function. Take the co
 C = \frac{1}{2n} \sum_i (y_i - a^{L}(x_i))^2
 \end{equation}
 
-First of all, the overall loss function needs to be able to be written as an average of the loss function of separate training examples. This is because backprop is designed to operate one training example at a time (giving us gradients for each training example) and the overall gradient can be recovered by averaging over all the gradients from the training examples as long as our loss function is an average to begin with over all training examples. In practice, averaging the gradient over all training examples is not usually done but instead updates happen in smaller batches called ``mini batches" over a random subset of the data (called stochastic gradient descent).
+First of all, the overall loss function needs to be able to be written as an average of the loss function of separate training examples. This is because backprop is designed to operate one training example at a time (giving us gradients for each training example) and the overall gradient can be recovered by averaging over all the gradients from the training examples as long as our loss function is an average to begin with over all training examples. In practice, averaging the gradient over all training examples is not usually done but instead updates happen in smaller batches called ``mini batches" over a random subset of the data (called stochastic gradient descent). Online learning is when we update after every example.
 
 The second assumption is that the loss function can be written as a function of the outputs of the network. This is just making the point that we want to be able to train the parameters of the model and so the loss function needs to be a function of those parameters.
+ 
+One other note to make is that when doing something like classification, instead of minimizing the classification error directly we minimize the quadratic error in order to make the loss function more smooth which helps us to see better how to change the weights and biases in the right direction.
  
 In my mind, it makes sense to think of backprop as a means to an end, in particular finding the gradient at a particular training example. To see this I calculate a partial derivative by hand below and later look at the backprop equations.
 
@@ -157,11 +159,6 @@ In this equation $\theta_t$ represents the parameters to the neural network at i
 It is key to remember that we are treating the loss function as a function of $\theta$ and keeping everything else fixed. The goal is to find the $\theta$ that minimizes the overall loss function.
 
 
-
-
-
-
-
 As we can see from the previous section, the algebra for this can get lengthy and messy. A key turning points for neural networks was finding a quicker way of calculating partial derivatives. 
 
 In terms of the same weight we found above ($w^{1}_{12}$) we have the four backprop equations. Equation 1 is the error of the $j^{th}$ node in the last layer:
@@ -172,12 +169,13 @@ In terms of the same weight we found above ($w^{1}_{12}$) we have the four backp
 
 \noindent Breaking this down we see that the first quantity on the right side of the equation is letting us know how fast the cost function is changing with respect to the output of the $j^{th}$ node. If this is high, then we know that the cost function is still fluctuating rapidly along this direction and we aren't at a minimum yet with respect to that direction. In this sense we can think of $\delta{L}_j$ referring to the error of the node. We can also write this all in vectorized form $\delta^{L}$.
 
-
+Nielsen shows that the fourth backprop equation is:
 
 
 \begin{equation}
 \frac{dC}{dw^{(1)}_{12}} = a_{2}^{0}\delta_1^{(1)}
 \end{equation}
+which we can then use the other equations to recursively get at the other $\delta$'s.
 
 The quantity $\delta_1^{(1)}$ is given by:
 
@@ -193,23 +191,12 @@ The quantity $\delta_1^{(1)}$ is given by:
  \delta^{(2)}_2  & = w_{12}^{(3)}\delta_1^{(3)}\sigma^{\prime}(z_2^{(2)})
  \end{split}
  \end{equation}
+
+What makes the backprop algorithm so fast is that we can compute all of the partial derivatives with one forward and backward pass, whereas other methods require multiple passes. 
  
+One other note to make is that nodes can become saturated when using activation functions like the sigmoid because the derivative will be close to zero on the edges of that function. When that happens then the update in the gradient descent formula will be minimal.
 
- 
- 
- For me, the best way to understand how a neural net works is to look at an actual network and learn by example. One of the classic examples is the XOR function. A discussion of this problem can be found in the Deep Learning book on pg. 167.
-
-Figure \ref{fig:xor} shows what the data looks like for this problem. We have two features, $x_1$ and $x_2$, that can take on two possible values, 0 or 1. We assign another binary variable $y$ to each of the possible combinations of $x_1, x_2$ resulting in $(0,0) = 0, (0,1)=1, (1,1)=1, (1,0)=0$.
-
-The goal here is to find a line that separates the response variable $y$ between its two possible values, 0 or 1. As we can see from the picture this is not possible with the current setup.
-
- \begin{figure} \label{fig:xor}
-\caption{XOR problem}
-\centering
- \includegraphics[scale=.7]{xor.png}
- \end{figure}
- 
-
+Hyperparameter tuning is where the magic or art of neural nets occur. There are heuristics we can learn.
 
  
  

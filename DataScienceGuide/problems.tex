@@ -46,6 +46,63 @@ What is the probability of getting at least an 80 percent on a true false test w
 \item[1.17]
 My telephone rings 12 times each week, the calls are randomly distributed across the 7 days. What is the probability I get 4 calls one day, 2 calls on each of two days and 1 call on each remaining day?
 
+\item[1.18]
+A textbook has $n$ typos randomly scattered across $n$ pages. If we pick a random page what is the probability there are no typos on it?
+
+\item[1.19]
+In a group of $n$ people, what is the expected number of distinct birthdays (month and day)? What is the expected number of birthday matches?
+
+\item[1.20]
+There are n people at a party, each with hat. At the end of the party, they each leave with a random hat. What is the expected number of people who leave with the right hat?
+
+\item[1.21]
+In any 15-minute interval, there is a 20\% probability that you will see at least one shooting star. What is the probability that you see at least one shooting star in the period of an hour?
+
+\item[1.22]
+How can you generate a random number between 1 and 7 using a normal die?
+
+\item[1.23]
+If someone gives you a unfair coin how do you get a fair outcome from it?
+
+\item[1.24]
+You have a group of couple that decide to have children until they have their first girl, after which they stop having children. What is the expected number of children each couple will have?
+
+\item[1.25]
+How many ways can you split 12 people into 3 teams of 4?
+
+\item[1.26]
+
+We have a hash function that maps 10 object to elements 1-10 (inclusive), with equal probability. What is the probability of a hash collision? What is the expected number of hash collisions? What is the expected number of hashes that are unused?
+
+\item[1.27]
+You call 2 Ubers and 3 Lyfts where the time it takes for them to show up is iid. What is the probability that the first 3 that show up are Lyfts? What about for Uber?
+
+\item[1.28]
+
+A lazy high school senior types up n applications to colleges but randomly puts them in n envelopes addressed to each college. Whats the expected number of colleges that will get the correct applications?
+
+\item[1.29]
+
+What’s the expected number of coin flips until you get two heads in a row? What’s the expected number of coin flips until you get two tails in a row?
+
+\item[1.30]
+
+Let’s say we play a game where I keep flipping a coin until I get heads. If the first time I get heads is on the nth coin, then I pay you 2n-1 dollars. How much would you pay me to play this game?
+
+\item[1.31]
+You have a 0.1\% chance of picking up a coin with both heads, and a 99.9\% chance that you pick up a fair coin. You flip your coin and it comes up heads 10 times. What’s the chance that you picked up the fair coin, given the information that you observed?
+
+\item[1.32]
+
+A certain couple tells you that they have two children, at least one of which is a girl. What is the probability that they have two girls? What if I say that the oldest child is a girl what is the probability both are girls then?
+
+\item[1.33]
+I write a program should print out all the numbers from 1 to 300, but prints out Fizz instead if the number is divisible by 3, Buzz instead if the number is divisible by 5, and FizzBuzz if the number is divisible by 3 and 5. What is the total number of numbers that is either Fizzed, Buzzed, or FizzBuzzed?
+
+\item[1.34]
+This problem is commonly known as the coupon collector problem. There are n coupon types. At each draw, you get a uniformly random coupon type. What is the expected number of coupons needed until you have a complete set?
+
+
 \end{enumerate}
 
 \subsection{Answers}
@@ -436,6 +493,192 @@ But wait theres more! We've only picked a random 4 slots. What about the remaini
 This is the wrong approach however. The correct approach is 8 choose 2 followed by 6 choose 2 and then for the days followed by another 6 choose 2. The reason we take this approach is because the first one double counts possibilities. We might select slots 1 and 2 for example and assign it to day 1 followed by selecting slots 3 and 4 and assigning it to day 2. In my first scenario we are not only counting the correct possibilities (slots 1 and 2 assigned to 1, slots 3 and 4 assigned to 2,  slots 3 and 4 assigned to 1, slots 1 and 2 assigned to 2) but counting then twice because we are switching slots AND days around. This is a subtle point that was not intuitive to me. 
 
 The remainder is for assigning the slots 4 choose 1, 3 choose 1, 2 choose 1, 1 choose 1, and finally 4 choose 4 when selecting the days. All of these are multiplied together. 
+
+\item[1.18]
+A textbook has $n$ typos randomly scattered across $n$ pages. If we pick a random page what is the probability there are no typos on it?
+
+We want $P(A)$ where $A$ is the event that there are no typos on a randomly chosen page. We can logic through this by realizing that the errors will be randomly distributed meaning for a given page there is a $\frac{1}{n}$ chance that we have a specific typo. This implies then that the probability of not having that specific typo is $(1 - \frac{1}{n})$. To not have any of the typos we then have $(1- \frac{1}{n})^n$.
+
+\item[1.19]
+In a group of $n$ people, what is the expected number of distinct birthdays (month and day)? What is the expected number of birthday matches?
+
+The first question is asking for an expectation. Since we are counting here a natural step would be to use linearity and expectation.
+
+We think of a sum of indicator random variables $I_i$ where the sum is the number of distinct birthdays and each $I_i$ is an indicator whether or not a given day in the year is in the group. We then are concerned with the probability that we have this birthday amongst $n$ people.
+
+To get this probability we go to the definition of naive probability and look at the probability it is not a distinct birthday. The denominator will be $365^{n}$ because thats the number of ways of getting $n$ birthdays and the numerator will be $364^n$ because thats the number of ways of choosing $n$ birthdays without the current day. This means the probability it is a distinct birthday will be $1 - (\frac{364}{365})^n$. 
+
+Taking the expectation of this sum we get $365*(1 - (\frac{364}{365})^n)$.
+
+The second question we take the same approach but this time $I_i$ will represent person $a$ and person $b$ have the same birthday. The probability of them not having a shared birthday will be $365^2$ in the denominator and $365*364$ in the numerator.
+
+In total we will have ${n \choose 2 } (1 - \frac{364}{365})$.
+
+
+\item[1.20]
+There are n people at a party, each with hat. At the end of the party, they each leave with a random hat. What is the expected number of people who leave with the right hat?
+
+Again lets divide this random variable into indicator random variables where each $I_i$ is if a person left with his/her hat. The probability of this happening is $\frac{1}{n}$. When we take the expected value of these indicators we 1. 
+
+\item[1.21]
+In any 15-minute interval, there is a 20\% probability that you will see at least one shooting star. What is the probability that you see at least one shooting star in the period of an hour?
+
+
+The first step is to realize that this is a Poisson random variable. We recognize it as such because we are dealing with counts (number of shooting stars) that have many ways of occurring but don't happen often. 
+
+The next step is to recognize this as a poisson process. We can recognize it as such if we make the following assumptions: for any time interval the count is modeled by a poisson distribution, and each time interval is independent of the other.
+
+One time interval is 15 min. We want to know over 4 time intervals (an hour) what the count is. Therefore we can use the properties of the poisson process to write $Pois(4\lambda)$. We want to know the probability of at least one shooting start so for now lets do the complement of zero shooting stars:
+
+\begin{equation}
+\frac{\lambda^{0} e^{-4\lambda}}{0!}
+\end{equation}
+
+We want to know what $\lambda$ which we can find using one time interval and the complement again:
+
+\begin{equation}
+e^{-\lambda} = .8
+\end{equation}
+
+Therefore $\lambda$ is equal to $-ln(0.8)$. Plugging this into our previous equation and taking the complement we get:
+
+\begin{equation}
+1 - (0.8)^4
+\end{equation}
+
+\item[1.22]
+How can you generate a random number between 1 and 7 using a normal die?
+
+Use binary numbers. Roll the die three times. If it is 1-3 then set equal to 1 otherwise set equal to 0.
+
+\item[1.23]
+If someone gives you a unfair coin how do you get a fair outcome from it?
+
+Flip it twice. If it comes up H,H or T,T ignore it. If it comes up H,T  then call it heads. If it comes up T,H call it tails. This is because these two quantities both have a probability of $(1-p)p$ of occurring if $p$ is the probability of a heads.
+
+
+\item[1.24]
+You have a group of couple that decide to have children until they have their first girl, after which they stop having children. What is the expected number of children each couple will have?
+
+First let's define relevant terms. We see expected number of children so we know we are dealing with random variables. Let $X$ be the number of children each couple will have. We then have to ask which distribution it follows, which we can recognize as the geometric distribution transformed to count the first success. Therefore the expectation will be $\frac{1}{p}$ or since our probability of a girl 0.5 then our expectation will be 2.
+
+\item[1.25]
+How many ways can you split 12 people into 3 teams of 4?
+
+I'm not super clear on this but I'm pretty sure if the teams are distinguishable then we would use the multinomial coefficient ${12 \choose 4, 4, 4}$. The way to understand why this is so is to first think of the number of ways we can choose one team of 4 from 12 people. We know this to be  ${12 \choose 4}$. Then we multiply that by  ${8 \choose 4}$ (for the second team) and finally  ${4\choose 4}$. Multiplying this all together gives us  ${12 \choose 4, 4, 4}$.
+
+If the teams are indistinguishable though I wonder if we want ${12 \choose 4, 4, 4, 3}$ to account for duplicate teams. 
+
+
+\item[1.26]
+
+We have a hash function that maps 10 object to elements 1-10 (inclusive), with equal probability. What is the probability of a hash collision? What is the expected number of hash collisions? What is the expected number of hashes that are unused?
+
+The first question is easy if you utilize the multinomial distribution. If we think of the probability of no hash collisions then we want to find the probability of the vector $(1,1,1,1,1,1,1,1,1,1)$. According the multinomial distribution this will just be:
+
+\begin{equation}
+\frac{10!}{1!1!1!1!1!1!1!1!1!1!} (\frac{1}{10})^{10}
+\end{equation} 
+
+The next question is a bit trickier. It might be easier to first think of the expected number of hashes that are unused. This is done by letting the indicator be 1 if the hash is unused and 0 if it is used. So for slot $j$ for example, the probability that it is empty is the same as saying that an object isn't assigned to it $(1-\frac{1}{k})$ for all objects $(1-\frac{1}{k})^n$ where $k$ is number of bins and $n$ is number of objects. The expectation will therefore be $n*(1-\frac{1}{k})^n$.
+
+When wanting to figure out the expected number of collisions we treat $X$ as the number of empty hash's and therefore the number of collisions will be $n - k + X$ (since $k-X$ gives us the number of nonempty bins, and subtracting that from $n$ will give us the number of overlap or collisions. If we take the expectation of that we get $n - k + n*(1-\frac{1}{k})^n$. Subbing in $k=10$ and $n=10$ we get $10*(1 - \frac{1}{10})^{10}$. 
+
+
+\item[1.27]
+
+You call 2 Ubers and 3 Lyfts where the time it takes for them to show up is iid. What is the probability that the first 3 that show up are Lyfts? What about for Uber?
+
+There are a couple of ways of solving this. My first thought was to use the naive definition of probability since all outcomes are equally likely. On the denominator then I would have ${5 \choose 3}$ giving us all the ways of picking from the 5 cars, 3 cars to show up first. Only one of those will be all 3 Lyfts. Therefore the probability will be $\frac{1}{10}$.
+
+The second question will be the same because ${5 \choose 2}$ is equal to ${5 \choose 3}$.
+
+Another way to think of this is to multiple probabilities together. So for the first question the probability that the first car shows up is a Uber is $\frac{3}{5}$ and the probability of the second car is $\frac{2}{4}$ and the third is $\frac{1}{3}$. Multiplied together gives us $\frac{1}{10}$.
+
+\item[1.28]
+
+A lazy high school senior types up n applications to colleges but randomly puts them in n envelopes addressed to each college. Whats the expected number of colleges that will get the correct applications?
+
+This is the same problem as the n hats in the room. Simply think of the high school senior putting all n applications in a pile. Then let $X_1$ be an indicator for his first draw - 1 if he gets the right application to the right folder, and 0 if he doesn't. The probability of 1 is $\frac{1}{n}$ so by linearity the expected value is 1.
+
+As a variation on this I wonder if you used the wording ``if the senior took a random envelope and a random application" the outcome would change because the probability would be $\frac{1}{n^2}$ instead of $\frac{1}{n}$.
+
+\item[1.29]
+
+What’s the expected number of coin flips until you get two heads in a row? What’s the expected number of coin flips until you get two tails in a row?
+
+This one is a tricky one and one that is best solve using recursion and not playing with the traditional definition of expectation.
+
+The first idea is to let $x$ be the expected number of flips until we get two heads in a row. Say we flip the coin one time and get a tails. We know then that our total number of flips will be $x+1$. The probability of this happening is $\frac{1}{2}$. If we flip a heads the first time and a tails the second time then we have $x+2$. The probability of this happening is $\frac{1}{4}$. If the first two flips are heads then the count is 2 with probability $\frac{1}{4}$. Our equation then becomes:
+
+\begin{equation}
+x = .5(x+1) + .25(x+2) + .25(2)
+\end{equation}
+
+Therefore  $x=6$
+
+\item[1.30]
+
+Let’s say we play a game where I keep flipping a coin until I get heads. If the first time I get heads is on the nth coin, then I pay you 2n-1 dollars. How much would you pay me to play this game?
+
+This is an expected value question. We want to know what the expected payout is. Lets write this out:
+
+$.5*(1) + .25*3 + .125*5 + ... + $
+
+We recognize this as an arithmetico-geometric series. The numerator varies by a additive constant (2) and the denominator varies by a multiplicative constant (.5). 
+
+We can solve this by letting $S = .5*(1) + .25*3 + .125*5 + ... + $. If we have $\frac{S}{2} = .25*(1) + .125*3 + .0625*5 + ... + $ then $S - \frac{S}{2} = .5 + .5 + .25 + 0.125 + ... + ... $. Therefore $\frac{S}{2} = .5 + .5 + .25 + 0.125 + ... + ... $, therefore $S = 1 + 1 + .5 + .25 + ... $. The first two terms sum to 2 and all other terms are the geometric series which sums to 1 so all together we have 3. This is the expected payout our friend will pay. So we would only want to pay him less than that. 
+  
+\item[1.31]
+You have a 0.1\% chance of picking up a coin with both heads, and a 99.9\% chance that you pick up a fair coin. You flip your coin and it comes up heads 10 times. What’s the chance that you picked up the fair coin, given the information that you observed?
+
+Bayes rule all the way!
+
+Should be around 0.5.
+
+\item[1.32]
+
+A certain couple tells you that they have two children, at least one of which is a girl. What is the probability that they have two girls? What if I say that the oldest child is a girl what is the probability both are girls then?
+
+If we assume that all possibilities are equal then we could list out the possibilities, only include the ones where there is at least one girl, and then find that $\frac{1}{3}$ will be two girls.
+
+Perhaps the more fail safe way however to tackle this is to use conditional probability and write:
+
+\begin{equation}
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+\end{equation}
+\noindent where $A$ is the event that there are two girls and $B$ is the event that there are at least one girl. We no that the numerator will be .25 (since $B$ is a subset of $A$ and the probability of having two girls is $0.5 * 0.5$). The denominator will be 0.75 since we have .5*.5 + .5*.5 + .5 *.5. The event is $B$ which is made up of simple events.
+
+For the second question the numerator will stay the same but the denominator will be 0.5*0.5 + 0.5*0.5. So we will have 0.5. 
+
+There is a subtle nuance here that is called the ``Boy, Girl Paradox". In the above formulation I am assuming that we were given the information by someone who saw both children and told us that one is a girl. However, if we change the question to say something like ``we chose a family with two children at random and randomly saw that one of the children was a girl" then things change. 
+
+In this scenario the numerator would be $P(A  \cap B) = P(B|A)P(A)$ which equals 1*.25 since the probability of a family with two girls out of all families with two children is .25. The denominator would be $P(B)$ which we can then use the law of total probability on to get .5. 
+
+The denominator is where the subtlety comes into play. When breaking the denominator up into the law of total probability we have two terms where we say the probability of the event of getting a boy, girl intersected with the event of having at least one girl and the probability of the event of getting a girl, boy intersected  with the event of having at least one girl again. In the first scenario we know that at least one is a girl and that the other child was seen. Therefore these probabilities are 0.25 (by changing from join to conditional probability multiplied by prior).
+
+However, in the second scenario we know at least one is a girl but the assumption is that a child was chosen at random to determine that. So we would have .25 *.5 for each of those statements.
+
+\item[1.33]
+I write a program should print out all the numbers from 1 to 300, but prints out Fizz instead if the number is divisible by 3, Buzz instead if the number is divisible by 5, and FizzBuzz if the number is divisible by 3 and 5. What is the total number of numbers that is either Fizzed, Buzzed, or FizzBuzzed?
+
+100+60-20=140
+
+\item[1.34]
+
+This problem is commonly known as the coupon collector problem. There are n coupon types. At each draw, you get a uniformly random coupon type. What is the expected number of coupons needed until you have a complete set?
+
+First define variables. Let N be the number of coupons needed. Define what we want. We want E(N). Let $N=N_1+...+N_n$, where $N_1$ is the draws to get our first new coupon, $N_2$ is the additional draws needed to draw our second new coupon and so on. By the story of the First Success, $N_2 \sim FS((\frac{(n -1)}{n})$ (after collecting first coupon type, there's an $\frac{(n - 1)}{n}$ chance you’ll get something new). 
+
+Similarly, $N_3 \sim FS(\frac{n-2}{n})$, and $N_j \sim FS(\frac{(n - j +1)}{n})$. By linearity, 
+
+\begin{equation}
+E(N)=E(N1)+...+E(Nn)= \frac{n}{n} +\frac{n}{n-1} + ... + \frac{n}{1} = n \sum_{j=1}^{n}{\frac{1}{j}}
+\end{equation}
+
+This is approximately n(log(n) + 0.577) by Euler’s approximation.
+
+
 
 
 
