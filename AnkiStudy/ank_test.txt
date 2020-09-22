@@ -1,4 +1,0 @@
-whats your name?, Matt
-hi, I'm matt too
-latex please, [latex]$x_i$[/latex]
-picture test, <img src="15 0 0.png">
