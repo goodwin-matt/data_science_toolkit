@@ -152,3 +152,28 @@ https://www.datascienceweekly.org
 https://www.analyticsvidhya.com
 No Free Hunch
 538
+
+
+### Textbooks that have really helped
+- Spark: the definitive guide. (By Chambers and Zaharia)
+- Learning Spark (O'Reilly)
+- Pattern Recognition and Machine Learning (By Chris Bishop)
+- The Elements of Statistical Learning (Hastie, Tibshirani, Friedman)
+- Weathermax solution manual to ESLII
+
+### Papers to keep in mind
+50 years of data science: Donoho
+Deep Learning Review: LeCun, Bengio, Hinton
+Statistical Modeling - Two Cultures: Breiman
+Bayesian Estimation Supersedes the t Test: Kruschke
+Why Should I Trust You? Explaining the Predictions of Any Classifier
+The Central Role of the Propensity Score in Observational Studies for Causal Effects
+On Discriminative and Generative classifiers - A comparison of logistic regression and naive Bayes
+Performance Evaluation in Machine Learning - The Good, The Bad, The Ugly and The Way Forward
+Probability Cheatsheet compiled by William chen
+Sample Size and Power Calculations: Gelman
+The Secrests of Machine Learning: Ten Things You Wish You Had Known Earlier to be More Effective at Data Analysis
+
+
+### Web Links to keep track of
+
